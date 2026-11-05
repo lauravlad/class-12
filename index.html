@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -10,10 +10,11 @@
 <style>
 /* Same visual system as Therefore: one narrow column, levels list on home, stepwise exercises. */
 :root{
-  --paper:#F5F6FA; --surface:#FFFFFF; --ink:#1C2142; --muted:#596080; --line:#D5D9E8;
+  --paper:#FBF7FD; --surface:#FFFFFF; --ink:#1C2142; --muted:#5D5A80; --line:#E7DCEE;
   --accent:#3442A6; --accent-ink:#FFFFFF;
   --good:#1D7550; --good-tint:#E3F3EB; --bad:#B42318; --bad-bg:#FBE9E7;
-  --soft:#ECEEF7;
+  --soft:#F4EDF8;
+  --blob1:#FFD6E7; --blob2:#E3D5FF; --blob3:#CFF5EA; --blob4:#FFEFC7; --lock-line:#F3CFE0; --lock-ring:rgba(255,182,213,.28); --lock-glow:rgba(217,58,110,.45); --lock-field:#FFF8FB;
   --mast:#262D72; --mast-ink:#FFFFFF; --mast-sym:rgba(255,255,255,.09); --mast-muted:rgba(255,255,255,.78);
   --candy:#D93A6E; --candy-ink:#FFFFFF; --candy-2:#FFE6EE;
   --p1:#0D7F73; --p1-soft:#DCF2EE; --p2:#A86400; --p2-soft:#FAEDD6; --p3:#B8365F; --p3-soft:#FAE1EA; --p4:#3442A6; --p4-soft:#E6E9F8;
@@ -32,6 +33,7 @@
     --accent:#8F9CFF; --accent-ink:#11132A;
     --good:#5FCB9C; --good-tint:#16352B; --bad:#FF8F84; --bad-bg:#3A1E22;
     --soft:#232747; color-scheme: dark;
+    --blob1:rgba(255,92,144,.20); --blob2:rgba(155,92,246,.22); --blob3:rgba(86,211,195,.14); --blob4:rgba(242,181,75,.12); --lock-line:#4A2C4E; --lock-ring:rgba(255,92,144,.12); --lock-glow:rgba(255,92,144,.45); --lock-field:#20183A;
     --mast:#2B327F; --mast-ink:#FFFFFF; --mast-sym:rgba(255,255,255,.08); --mast-muted:rgba(255,255,255,.75);
     --candy:#FF5C90; --candy-ink:#1A0A12; --candy-2:#3D1A28;
     --p1:#56D3C3; --p1-soft:#14322E; --p2:#F2B54B; --p2-soft:#382B12; --p3:#FF8FB3; --p3-soft:#3B1A27; --p4:#8F9CFF; --p4-soft:#232747;
@@ -43,6 +45,7 @@
   --accent:#8F9CFF; --accent-ink:#11132A;
   --good:#5FCB9C; --good-tint:#16352B; --bad:#FF8F84; --bad-bg:#3A1E22;
   --soft:#232747; color-scheme: dark;
+    --blob1:rgba(255,92,144,.20); --blob2:rgba(155,92,246,.22); --blob3:rgba(86,211,195,.14); --blob4:rgba(242,181,75,.12); --lock-line:#4A2C4E; --lock-ring:rgba(255,92,144,.12); --lock-glow:rgba(255,92,144,.45); --lock-field:#20183A;
     --mast:#2B327F; --mast-ink:#FFFFFF; --mast-sym:rgba(255,255,255,.08); --mast-muted:rgba(255,255,255,.75);
     --candy:#FF5C90; --candy-ink:#1A0A12; --candy-2:#3D1A28;
     --p1:#56D3C3; --p1-soft:#14322E; --p2:#F2B54B; --p2-soft:#382B12; --p3:#FF8FB3; --p3-soft:#3B1A27; --p4:#8F9CFF; --p4-soft:#232747;
@@ -198,6 +201,43 @@ input[type=text]:focus-visible{outline:3px solid var(--accent);outline-offset:2p
 .gclock{font-variant-numeric:tabular-nums;font-weight:700}
 .gclock.low{color:var(--bad, #c0392b)}
 .exnum{margin:-.4rem 0 .8rem;font-weight:600}
+
+
+/* Cute home header */
+.mast{background:linear-gradient(135deg,#E0457B 0%,#9B5CF6 58%,#3BAFA0 100%);box-shadow:0 20px 44px -24px rgba(155,92,246,.7)}
+.mast .syms{color:rgba(255,255,255,.14)}
+.mast h1 .f{opacity:.7}
+.mast .candy-cta{background:var(--surface);color:var(--ink);box-shadow:0 12px 26px -14px rgba(60,20,80,.55)}
+.mast .candy-cta::before{background:repeating-linear-gradient(-45deg,var(--candy) 0 8px,transparent 8px 16px);opacity:.85}
+.mast .candy-cta small{color:var(--muted);opacity:1}
+.mast .candy-cta b{color:var(--candy)}
+.mast .candy-cta .go-light{background:linear-gradient(90deg,var(--candy),#9B5CF6);color:#fff}
+.levels,.mast{position:relative;z-index:1}
+/* ===== Cute front screen ===== */
+.cute-bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:
+  radial-gradient(40vmax 40vmax at 8% 12%, var(--blob1), transparent 60%),
+  radial-gradient(38vmax 38vmax at 92% 18%, var(--blob2), transparent 60%),
+  radial-gradient(44vmax 44vmax at 80% 95%, var(--blob3), transparent 60%),
+  radial-gradient(36vmax 36vmax at 10% 90%, var(--blob4), transparent 60%),
+  var(--paper)}
+.cute-bg span{position:absolute;line-height:1;font-family:var(--logic);font-weight:700;opacity:.85;transform:rotate(var(--r))}
+.cute-bg .em{font-family:system-ui,'Apple Color Emoji','Segoe UI Emoji',sans-serif;opacity:1;filter:drop-shadow(0 4px 6px rgba(120,60,140,.18))}
+@media (prefers-reduced-motion:no-preference){
+  .cute-bg span{animation:bob var(--d) ease-in-out infinite alternate}
+  @keyframes bob{from{transform:translateY(0) rotate(var(--r))}to{transform:translateY(-14px) rotate(calc(var(--r) + 8deg))}}
+  .lock .tile{animation:wiggle 3.2s ease-in-out infinite}
+  @keyframes wiggle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg) scale(1.04)}}
+}
+.lock{border:2px solid var(--lock-line);border-radius:28px;box-shadow:0 22px 60px -26px var(--lock-glow),0 0 0 8px var(--lock-ring)}
+.lock .tile{background:linear-gradient(135deg,var(--candy),#9B5CF6);color:#fff;border-radius:24px;box-shadow:0 12px 26px -10px var(--lock-glow);position:relative}
+.lock .tile::after{content:'✦';position:absolute;top:-8px;right:-10px;font-size:20px;color:#FFC93C;text-shadow:0 1px 0 rgba(0,0,0,.08)}
+.lock h1{background:linear-gradient(90deg,var(--candy),#9B5CF6 55%,var(--p1));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lock h1 .wave{-webkit-text-fill-color:initial;color:initial;margin-left:6px;font-size:.8em}
+.lock input[type=text]{border:2px solid var(--lock-line);border-radius:16px;background:var(--lock-field)}
+.lock input[type=text]:focus{border-color:var(--candy);outline:3px solid var(--lock-ring);outline-offset:0}
+.lock .btn.big{border-radius:16px;background:linear-gradient(90deg,var(--candy),#9B5CF6);color:#fff;box-shadow:0 10px 20px -10px var(--lock-glow)}
+.lock .chip{font-size:.9rem;padding:6px 14px;box-shadow:inset 0 0 0 1.5px var(--lock-line)}
+.lock .hello{margin:0;font-weight:700;color:var(--candy);letter-spacing:.02em}
 </style>
 </head>
 <body>
@@ -448,6 +488,7 @@ VIEWS.home = () => {
   const t=(go,arg,ico,name,sub,id,verb='Practice')=>`<li><button class="topic" data-go="${go}" ${arg?`data-arg="${arg}"`:''}><span class="t-ico${ico.length>2?' small':''}" aria-hidden="true">${esc(ico)}</span><span>${name}<small>${sub}${soFar(id)}</small></span><span class="go">${verb} →</span></button></li>`;
   const part=(n,title,items)=>`<li class="level part-${n}"><div class="part-head"><span class="part-badge" aria-hidden="true">${n}</span><h2>${title}</h2><span class="level-num">Part ${n}</span></div><ul class="topics">${items}</ul></li>`;
   return `
+  ${cuteBg(0)}
   <header class="mast">
     ${symLayer(16, 7)}
     <p class="kicker">PHIL 270 · Symbolic Logic</p>
@@ -976,11 +1017,24 @@ const CLASS_CODE='class12';
 const normCode = v => String(v||'').toLowerCase().replace(/\s+/g,'');
 let unlocked=false; try{ unlocked = localStorage.getItem('class12-unlocked')==='yes'; }catch(e){}
 let codeError=false;
+// Cute, colorful floating background for the front screen.
+function cuteBg(n=22){
+  let x=29; const rnd=()=>((x=(x*16807)%2147483647)/2147483647);
+  const EM=['🍬','🍭','🍫','🍬','🍭','⭐','💜','🍬'], SY=['∀','∃','⊃','≡','~','&','∨'], COL=['var(--candy)','#9B5CF6','var(--p1)','var(--p2)','var(--p4)'];
+  let out='';
+  for(let i=0;i<n;i++){
+    const em=i%2===0, l=(rnd()*96).toFixed(1), t=(rnd()*94).toFixed(1), r=(rnd()*40-20).toFixed(0), d=(2.6+rnd()*3).toFixed(1);
+    if(em) out+=`<span class="em" style="left:${l}%;top:${t}%;font-size:${(22+rnd()*20).toFixed(0)}px;--r:${r}deg;--d:${d}s">${EM[Math.floor(rnd()*EM.length)]}</span>`;
+    else out+=`<span style="left:${l}%;top:${t}%;font-size:${(22+rnd()*30).toFixed(0)}px;color:${COL[Math.floor(rnd()*COL.length)]};opacity:.35;--r:${r}deg;--d:${d}s">${SY[Math.floor(rnd()*SY.length)]}</span>`;
+  }
+  return `<div class="cute-bg" aria-hidden="true">${out}</div>`;
+}
 VIEWS.lock = () => `
-  ${symLayer(26, 11, 'page-syms')}
+  ${cuteBg()}
   <div class="lock">
     <div class="tile" aria-hidden="true">∀∃</div>
-    <h1>Class 12</h1>
+    <p class="hello">Hi, logician! 👋</p>
+    <h1>Class 12<span class="wave" aria-hidden="true">🍭</span></h1>
     <p class="sub">Predicate logic review for PHIL 270: all four parts.</p>
     <form id="code-form" class="code-form" novalidate>
       <label for="class-code" class="hint">Enter the class code your teacher gave you</label>
