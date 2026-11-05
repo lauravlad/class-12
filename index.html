@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Class 12</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=STIX+Two+Text:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Same visual system as Therefore: one narrow column, levels list on home, stepwise exercises. */
+:root{
+  --paper:#F5F6FA; --surface:#FFFFFF; --ink:#1C2142; --muted:#596080; --line:#D5D9E8;
+  --accent:#3442A6; --accent-ink:#FFFFFF;
+  --good:#1D7550; --good-tint:#E3F3EB; --bad:#B42318; --bad-bg:#FBE9E7;
+  --soft:#ECEEF7;
+  --mast:#262D72; --mast-ink:#FFFFFF; --mast-sym:rgba(255,255,255,.09); --mast-muted:rgba(255,255,255,.78);
+  --candy:#D93A6E; --candy-ink:#FFFFFF; --candy-2:#FFE6EE;
+  --p1:#0D7F73; --p1-soft:#DCF2EE; --p2:#A86400; --p2-soft:#FAEDD6; --p3:#B8365F; --p3-soft:#FAE1EA; --p4:#3442A6; --p4-soft:#E6E9F8;
+  --page-sym:rgba(52,66,166,.07);
+  --serif:'Literata', Georgia, 'Times New Roman', serif;
+  --sans:'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --logic:'STIX Two Text', 'Cambria Math', 'Times New Roman', serif;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#11132A; --surface:#1A1D39; --ink:#E7E9F7; --muted:#A2A8C8; --line:#323759;
+    --accent:#8F9CFF; --accent-ink:#11132A;
+    --good:#5FCB9C; --good-tint:#16352B; --bad:#FF8F84; --bad-bg:#3A1E22;
+    --soft:#232747; color-scheme: dark;
+    --mast:#2B327F; --mast-ink:#FFFFFF; --mast-sym:rgba(255,255,255,.08); --mast-muted:rgba(255,255,255,.75);
+    --candy:#FF5C90; --candy-ink:#1A0A12; --candy-2:#3D1A28;
+    --p1:#56D3C3; --p1-soft:#14322E; --p2:#F2B54B; --p2-soft:#382B12; --p3:#FF8FB3; --p3-soft:#3B1A27; --p4:#8F9CFF; --p4-soft:#232747;
+    --page-sym:rgba(143,156,255,.07);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#11132A; --surface:#1A1D39; --ink:#E7E9F7; --muted:#A2A8C8; --line:#323759;
+  --accent:#8F9CFF; --accent-ink:#11132A;
+  --good:#5FCB9C; --good-tint:#16352B; --bad:#FF8F84; --bad-bg:#3A1E22;
+  --soft:#232747; color-scheme: dark;
+    --mast:#2B327F; --mast-ink:#FFFFFF; --mast-sym:rgba(255,255,255,.08); --mast-muted:rgba(255,255,255,.75);
+    --candy:#FF5C90; --candy-ink:#1A0A12; --candy-2:#3D1A28;
+    --p1:#56D3C3; --p1-soft:#14322E; --p2:#F2B54B; --p2-soft:#382B12; --p3:#FF8FB3; --p3-soft:#3B1A27; --p4:#8F9CFF; --p4-soft:#232747;
+    --page-sym:rgba(143,156,255,.07);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.5;-webkit-tap-highlight-color:transparent}
+main{max-width:640px;margin:0 auto;padding-block:20px 64px;padding-left:max(18px, env(safe-area-inset-left,0px));padding-right:max(18px, env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2;margin:0;text-wrap:balance}
+h1{font-size:2.4rem;letter-spacing:-.01em}
+h2{font-size:1.55rem}
+h3{font-size:1.1rem}
+p{margin:.4em 0}
+.muted{color:var(--muted)}
+.f{font-family:var(--logic);white-space:nowrap}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,a:focus-visible,label:focus-within{outline:3px solid var(--accent);outline-offset:2px}
+.back{background:none;border:0;padding:6px 0;color:var(--accent);font-weight:700;margin-bottom:10px}
+
+/* Home */
+.hero{display:flex;align-items:center;gap:16px;margin:8px 0 6px}
+.hero svg{width:84px;height:auto;flex:none}
+.tagline{font-size:1.05rem;color:var(--muted);max-width:34ch}
+.levels{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--line)}
+.level{border-bottom:1px solid var(--line);padding:16px 0}
+.level-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.level-num{font-family:var(--serif);color:var(--muted);font-size:.95rem;white-space:nowrap}
+.topics{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-direction:column;gap:8px}
+.topic{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--accent);background:var(--surface);border-radius:12px;padding:12px 14px}
+.topic:hover{background:var(--soft)}
+.topic small{display:block;color:var(--muted);font-size:.88rem}
+.go{color:var(--accent);font-weight:700;white-space:nowrap}
+
+/* Exercise */
+.ex-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+.score{font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.prop{font-family:var(--serif);font-size:1.4rem;line-height:1.35;margin:14px 0 6px}
+.prop mark{background:var(--soft);color:var(--ink);border-bottom:2px solid var(--accent);padding:0 2px}
+.formula{font-family:var(--logic);font-size:1.6rem;line-height:1.6;margin:12px 0 4px;display:flex;flex-wrap:wrap;align-items:baseline;row-gap:4px}
+.formula .sp{width:.3em}
+.tok{border:0;background:transparent;padding:0 2px;border-radius:5px;font-family:var(--logic);font-size:inherit;line-height:inherit}
+.tok.tap{border-bottom:2px dashed var(--muted);margin:0 1px}
+.tok.tap:hover{background:var(--soft)}
+.tok.sel{background:var(--soft);border-bottom:2px solid var(--accent)}
+.tok.right{background:var(--good-tint);border-bottom:2px solid var(--good)}
+.tok.wrong{background:var(--bad-bg);border-bottom:2px solid var(--bad)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.92rem;color:var(--muted);margin:6px 0 0}
+.key b{color:var(--ink);font-family:var(--logic);font-weight:600}
+.step{margin-top:26px;padding-top:18px;border-top:1px solid var(--line)}
+.step h3{margin-bottom:4px}
+.step .hint{font-size:.92rem;color:var(--muted)}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.choices.one{grid-template-columns:1fr}
+.choices.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.choice{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px;text-align:left;min-width:0;overflow-wrap:anywhere}
+.choice b{font-family:var(--serif);margin-right:6px}
+.choice.picked{border-color:var(--accent);background:var(--soft)}
+.choice.right{border-color:var(--good);background:var(--good-tint)}
+.choice.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.choice .why{display:block;font-size:.88rem;color:var(--muted);margin-top:4px;font-family:var(--sans)}
+.check{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{margin-top:6px;accent-color:var(--accent);width:18px;height:18px;flex:none}
+.builder{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:12px;font-family:var(--logic);font-size:1.3rem}
+.builder select{font-family:var(--logic);font-size:1.15rem;padding:6px 6px;min-width:0}
+select{font:inherit;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink)}
+.preview{margin-top:10px;font-size:.92rem;color:var(--muted)}
+.preview .f{color:var(--ink);font-size:1.25rem}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:700;background:var(--accent);color:var(--accent-ink)}
+.btn[disabled]{opacity:.45;cursor:default}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.fb{margin-top:12px;padding:12px 14px;border-radius:10px;font-size:.97rem}
+.fb.good{background:var(--good-tint);color:var(--ink);border-left:4px solid var(--good)}
+.fb.bad{background:var(--bad-bg);color:var(--ink);border-left:4px solid var(--bad)}
+.fb strong{display:block;margin-bottom:2px}
+.fb ul{margin:6px 0 0;padding-left:1.2em}
+.fb li{margin:3px 0}
+.next{margin-top:30px;display:flex;justify-content:flex-end}
+/* Front screens */
+.syms{position:absolute;inset:0;overflow:hidden;pointer-events:none;font-family:var(--logic);user-select:none}
+.syms span{position:absolute;line-height:1;transform:rotate(var(--r))}
+.page-syms{position:fixed;z-index:0;color:var(--page-sym)}
+.lock{position:relative;z-index:1;max-width:400px;margin:9vh auto 0;text-align:center;display:grid;gap:10px;justify-items:center;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:30px 24px 26px;box-shadow:0 18px 50px -24px rgba(28,33,66,.35)}
+.lock .tile{width:76px;height:76px;margin-top:-68px;border-radius:20px;background:var(--mast);color:var(--mast-ink);display:grid;place-items:center;font-family:var(--logic);font-size:34px;box-shadow:0 10px 24px -10px rgba(38,45,114,.6)}
+.lock h1{font-size:2.5rem;margin-top:6px}
+.lock .sub{color:var(--muted);margin:0}
+.lock .code-form{margin-top:10px;text-align:center}
+.t-ico.small{font-size:.95rem}
+.lock input[type=text]{text-align:center;font-size:1.3rem;letter-spacing:.18em;padding:14px 12px;font-family:var(--logic)}
+.lock .chip{display:inline-flex;gap:6px;align-items:center;font-size:.85rem;color:var(--candy);background:var(--candy-2);border-radius:999px;padding:4px 12px;font-weight:700}
+.mast{position:relative;overflow:hidden;background:var(--mast);color:var(--mast-ink);border-radius:24px;padding:30px 24px 24px;margin-top:4px}
+.mast .syms{color:var(--mast-sym)}
+.mast > *:not(.syms){position:relative}
+.kicker{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mast-muted);margin:0;font-weight:700}
+.mast h1{font-size:clamp(2.6rem,9vw,3.6rem);letter-spacing:-.02em;margin-top:6px;color:var(--mast-ink)}
+.mast h1 .f{font-size:.8em;opacity:.55;margin-left:.15em}
+.mast-tag{color:var(--mast-muted);font-size:1.08rem;margin:.3em 0 0;max-width:34ch}
+.mast .candy-cta{margin-top:22px}
+.part-head{display:flex;align-items:center;gap:12px}
+.part-badge{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--pc);color:var(--surface);font-family:var(--serif);font-weight:600;font-size:1rem}
+.part-head h2{font-size:1.3rem}
+.part-head .level-num{margin-left:auto}
+.level{--pc:var(--p4);--pcs:var(--p4-soft)}
+.level.part-1{--pc:var(--p1);--pcs:var(--p1-soft)}
+.level.part-2{--pc:var(--p2);--pcs:var(--p2-soft)}
+.level.part-3{--pc:var(--p3);--pcs:var(--p3-soft)}
+.levels .topic{border-color:var(--line);display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;padding:12px 14px 12px 12px;transition:border-color .15s, transform .15s}
+.levels .topic:hover{border-color:var(--pc);background:var(--surface);transform:translateY(-1px)}
+.t-ico{width:44px;height:44px;border-radius:12px;background:var(--pcs);color:var(--pc);display:grid;place-items:center;font-family:var(--logic);font-size:1.25rem;font-weight:600}
+.levels .go{color:var(--pc)}
+@media (prefers-reduced-motion:reduce){ .levels .topic{transition:none} .levels .topic:hover{transform:none} }
+.code-form{display:grid;gap:8px;width:100%;margin-top:8px;text-align:left}
+.code-form .btn{justify-self:stretch}
+.code-err{color:var(--bad);font-size:.95rem;margin:0}
+input[aria-invalid="true"]{border-color:var(--bad)}
+/* Candy Challenge */
+.candy-cta{position:relative;overflow:hidden;display:flex;gap:14px;align-items:center;width:100%;text-align:left;background:var(--candy);color:var(--candy-ink);border:0;border-radius:16px;padding:18px 16px 16px;margin-top:22px;box-shadow:0 10px 24px -12px rgba(0,0,0,.45)}
+.candy-cta::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.85) 0 8px,transparent 8px 16px)}
+.candy-cta:hover{filter:brightness(1.06)}
+.candy-cta .go-light{background:var(--candy-ink);color:var(--candy);border-radius:999px;padding:6px 14px}
+.candy-cta b{font-family:var(--serif);font-size:1.25rem;display:block}
+.candy-cta small{display:block;opacity:.88;font-size:.9rem}
+.candy-ico{font-size:2.2rem;line-height:1}
+.go-light{font-weight:700;white-space:nowrap;margin-left:auto}
+.game-hero{text-align:center;display:grid;gap:6px;justify-items:center;margin-top:6px}
+.game-hero p{max-width:40ch}
+.big-candy{font-size:64px;line-height:1}
+input[type=text]{font:inherit;padding:11px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);width:100%;margin-top:8px}
+input[type=text]:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn.big{font-size:1.1rem;padding:14px 24px}
+.gbar{display:grid;gap:6px;margin-bottom:14px}
+.gbar-row{display:flex;justify-content:space-between;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.dots{display:flex;gap:4px}
+.dots i{flex:1;height:7px;border-radius:4px;background:var(--line)}
+.dots i.hit{background:var(--good)} .dots i.miss{background:var(--bad)} .dots i.now{background:var(--accent)}
+.cheer{color:var(--good);font-weight:700;white-space:nowrap}
+.win{text-align:center;background:var(--surface);border:2px solid var(--accent);border-radius:18px;padding:30px 18px;display:grid;gap:6px;justify-items:center;position:relative;z-index:6;margin-top:10px}
+.win.lose{border-color:var(--line)}
+.win h1{font-size:2.2rem}
+.eyebrow{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0}
+.cheer-big{font-family:var(--serif);font-size:1.4rem;color:var(--good);margin:0}
+.final{font-size:1.25rem;font-weight:700;font-variant-numeric:tabular-nums}
+.stamp{font-size:.9rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px;margin-top:6px}
+.actions.center{justify-content:center;margin-top:18px}
+.rain{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.rain span{position:absolute;top:-60px;animation-name:fall;animation-timing-function:linear;animation-iteration-count:3}
+@keyframes fall{to{transform:translateY(115vh) rotate(380deg)}}
+.bounce{animation:bounce 1s ease-in-out infinite alternate}
+@keyframes bounce{from{transform:translateY(0) rotate(-6deg)}to{transform:translateY(-12px) rotate(6deg)}}
+@media (prefers-reduced-motion:reduce){ .rain{display:none} .bounce{animation:none} }
+@media (max-width:420px){ h1{font-size:2rem} .prop{font-size:1.25rem} .formula{font-size:1.35rem} .choices{grid-template-columns:1fr} .choices.three{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (prefers-reduced-motion:no-preference){ .fb{animation:pop .18s ease-out} @keyframes pop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}} }
+.gclock{font-variant-numeric:tabular-nums;font-weight:700}
+.gclock.low{color:var(--bad, #c0392b)}
+.exnum{margin:-.4rem 0 .8rem;font-weight:600}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+// ===== Helpers =====
+// Seeded randomness: every student sees the exact same exercises, in the same order.
+let R=Math.random;
+function seeded(key){ let h=2166136261; for(const c of key){ h^=c.charCodeAt(0); h=Math.imul(h,16777619); } let x=h>>>0; return ()=>{ x=(x+0x6D2B79F5)|0; let t=Math.imul(x^x>>>15,1|x); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function withSeed(key,fn){ const old=R; R=seeded(key); try{ return fn(); } finally{ R=old; } }
+const pick = a => a[Math.floor(R()*a.length)];
+const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(R()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; };
+const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const F = s => `<span class="f">${esc(s)}</span>`;
+// Text with {formula} markers
+const fmt = t => esc(t).replace(/\{([^}]*)\}/g,'<span class="f">$1</span>');
+const art = w => (/^[aeiou]/i.test(w)?'an ':'a ')+w;
+const cap = s => s[0].toUpperCase()+s.slice(1);
+
+// ===== Saved progress (this browser only) =====
+const KEY='class12-v1';
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ return {}; } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(progress)); }catch(e){} }
+const progress = load();
+function tally(id, ok){ const p=progress[id]||(progress[id]={done:0,right:0}); p.done++; if(ok) p.right++; save(); gameRecord(ok); }
+const sc = id => { const p=progress[id]; return p?`${p.right}/${p.done}`:'0/0'; };
+const soFar = id => { const p=progress[id]; return p&&p.done?` ${p.right} of ${p.done} correct so far.`:''; };
+
+// ===== Formula engine =====
+const VARS=['x','y','z'], CONSTS=['a','b','c','d'];
+const isVar = s => ['w','x','y','z'].includes(s);
+const At=(p,...args)=>({t:'atom',p,args}), Ng=a=>({t:'not',a}), Bn=(op,l,r)=>({t:'bin',op,l,r}), Qf=(q,v,a)=>({t:'q',q,v,a});
+
+function tokens(root){
+  const out=[];
+  (function walk(n,top,bound){
+    if(n.t==='atom'){ out.push({s:n.p,k:'pred'}); n.args.forEach(a=>out.push({s:a,k:isVar(a)?'var':'const',free:isVar(a)&&!bound.includes(a),binder:isVar(a)?bound.lastIndexOf(a):-1})); }
+    else if(n.t==='not'){ out.push({s:'~',k:'op',node:n}); walk(n.a,false,bound); }
+    else if(n.t==='bin'){ if(!top) out.push({s:'(',k:'p'}); walk(n.l,false,bound); out.push({s:n.op,k:'op',node:n,bin:true}); walk(n.r,false,bound); if(!top) out.push({s:')',k:'p'}); }
+    else { out.push({s:`(${n.q}${n.v})`,k:'op',node:n}); walk(n.a,false,[...bound,n.v]); }
+  })(root,true,[]);
+  return out;
+}
+const str = n => tokens(n).map(t=>t.bin?` ${t.s} `:t.s).join('');
+const freeCount = n => tokens(n).filter(t=>t.free).length;
+function countVar(n,v){ if(n.t==='atom') return n.args.filter(a=>a===v).length; if(n.t==='not'||n.t==='q') return countVar(n.a,v); return countVar(n.l,v)+countVar(n.r,v); }
+function quants(n,acc=[]){ if(n.t==='q'){acc.push(n); quants(n.a,acc);} else if(n.t==='not') quants(n.a,acc); else if(n.t==='bin'){quants(n.l,acc);quants(n.r,acc);} return acc; }
+const typeOf = n => n.t==='atom'?'Atomic':n.t==='q'?'Quantified':'Truth-functional';
+
+function genAtom(scope){
+  const two=R()<0.3, p=two?pick(['R','L']):pick(['F','G','H']), args=[];
+  for(let i=0;i<(two?2:1);i++){ const r=R(); if(r<0.35) args.push(pick(CONSTS.slice(0,3))); else if(scope.length&&r<0.88) args.push(pick(scope)); else args.push(pick(VARS)); }
+  return At(p,...args);
+}
+function gen(d,scope){
+  const r=R();
+  if(d<=0||r<0.2) return genAtom(scope);
+  if(r<0.36) return Ng(gen(d-1,scope));
+  if(r<0.68) return Bn(pick(['&','∨','⊃','≡']),gen(d-1,scope),gen(d-1,scope));
+  const open=VARS.filter(v=>!scope.includes(v)); if(!open.length) return genAtom(scope);
+  const v=pick(open);
+  for(let i=0;i<10;i++){ const body=gen(d-1,[...scope,v]); if(countVar(body,v)>0) return Qf(pick(['∀','∃']),v,body); }
+  const a=genAtom([...scope,v]); a.args[0]=v; return Qf(pick(['∀','∃']),v,a);
+}
+// Replace occurrences of v; fn(i) gives the replacement for the i-th occurrence, or null to keep it.
+function subst(n,v,fn,ctr={i:0}){
+  if(n.t==='atom') return At(n.p,...n.args.map(a=>a===v?(fn(ctr.i++)??a):a));
+  if(n.t==='not') return Ng(subst(n.a,v,fn,ctr));
+  if(n.t==='bin') return Bn(n.op,subst(n.l,v,fn,ctr),subst(n.r,v,fn,ctr));
+  if(n.v===v) return n;
+  return Qf(n.q,n.v,subst(n.a,v,fn,ctr));
+}
+
+// ===== Content =====
+const PARTN = {p1:'Part 1', p2:'Part 2', p3:'Part 3', p4:'Part 4'};
+const SECTIONS = {
+  'p1':'Names, predicates, and quantity words',
+  'p2':'Reading formulas',
+  'p3':'All, no, and some',
+  'p4':'Fine-tuned symbolization',
+};
+
+// Part 4: relations for quantifier order
+const VERBS=[
+  {L:'L', vs:'likes', pp:'liked'}, {L:'T', vs:'trusts', pp:'trusted'}, {L:'A', vs:'admires', pp:'admired'},
+  {L:'K', vs:'knows', pp:'known'}, {L:'H', vs:'helps', pp:'helped'},
+];
+const RS = (q1,q2,ord,on=0,n2=0,n3=0)=>({on,q1,n2,q2,n3,ord});
+const ORDER_T=[
+  {say:v=>`Everyone ${v.vs} someone.`, st:RS('∀','∃','xy'), e:v=>`Each person x ${v.vs} some y or other. Different people may pick different ys, so (∀x) comes first.`},
+  {say:v=>`Someone ${v.vs} everyone.`, st:RS('∃','∀','xy'), e:v=>`One person x ${v.vs} every y, so (∃x) comes first and x is in the first place.`},
+  {say:v=>`There is someone whom everyone ${v.vs}.`, st:RS('∃','∀','yx'), e:v=>`One person x is such that every y ${v.vs} x. So (∃x) comes first and x goes in the second place.`},
+  {say:v=>`Everyone is ${v.pp} by someone.`, st:RS('∀','∃','yx'), e:v=>`For each x there is some y who ${v.vs} x. The ‘by’ puts y in the first place.`},
+  {say:v=>`Everyone ${v.vs} everyone.`, st:RS('∀','∀','xy'), e:()=>`Both quantifiers are universal, so their order does not matter.`},
+  {say:v=>`Someone ${v.vs} someone.`, st:RS('∃','∃','xy'), e:()=>`Both quantifiers are existential, so their order does not matter.`},
+  {say:v=>`No one ${v.vs} everyone.`, st:RS('∃','∀','xy',1), e:v=>`It is not the case that someone ${v.vs} everyone. (∀x)(∃y)~ is an equivalent way to write it.`},
+  {say:v=>`Someone ${v.vs} no one.`, st:RS('∃','∃','xy',0,1), e:v=>`There is an x such that it is not the case that there is a y x ${v.vs}.`},
+  {say:v=>`There is someone no one ${v.vs}.`, st:RS('∃','∃','yx',0,1), e:v=>`There is an x such that no y ${v.vs} x, so x goes in the second place.`},
+  {say:v=>`Not everyone ${v.vs} someone.`, st:RS('∀','∃','xy',1), e:()=>`Negate the whole of ‘everyone … someone’.`},
+];
+const PEOPLE=['Ana','Ben','Cy'];
+function evalRel(st,n,R){
+  const L=(a,b)=>!!((R>>(a*n+b))&1), D=[...Array(n).keys()];
+  const atom=(x,y)=>{ const v=st.ord==='xy'?L(x,y):L(y,x); return st.n3?!v:v; };
+  const inner=x=>{ const r=st.q2==='∀'?D.every(y=>atom(x,y)):D.some(y=>atom(x,y)); return st.n2?!r:r; };
+  const v=st.q1==='∀'?D.every(inner):D.some(inner);
+  return st.on?!v:v;
+}
+function relCounter(a,b){
+  for(let n=1;n<=3;n++){
+    let best=null;
+    for(let R=0;R<(1<<(n*n));R++){
+      if(evalRel(a,n,R)!==evalRel(b,n,R)){ const pc=R.toString(2).split('1').length-1; if(!best||pc<best.pc) best={n,R,pc}; }
+    }
+    if(best) return best;
+  }
+  return null;
+}
+
+// name the expression
+const KINDS=['Proper name','Definite description','Pronoun','Quantity expression','None of these'];
+const NAME_BANK=[
+  {s:'Frida Kahlo painted many self-portraits.', p:'Frida Kahlo', a:0, e:'A proper name for one person.'},
+  {s:'The inventor of the telephone was born in Scotland.', p:'The inventor of the telephone', a:1, e:'‘The inventor of the telephone’ fits at most one person.'},
+  {s:'Priya said she would come early.', p:'she', a:2, e:'‘She’ stands in for ‘Priya’ and refers to the same person, so it works as a singular term.'},
+  {s:'Everyone enjoyed the concert.', p:'Everyone', a:3, e:'It does not name a group. It says ‘enjoyed the concert’ is true of each person.'},
+  {s:'Nobody finished the puzzle.', p:'Nobody', a:3, e:'It sits where a name could go, but it names no one. It says there is no person who finished.'},
+  {s:'Leo’s cousin lives in Ohio.', p:'Leo’s cousin', a:4, e:'Leo may have many cousins, so the phrase does not pick out one person.'},
+  {s:'Ana’s only sister is a pilot.', p:'Ana’s only sister', a:1, e:'‘Only’ limits it to at most one person, so it is a definite description.'},
+  {s:'Someone left a coat in the hall.', p:'Someone', a:3, e:'It says only that there is such a person. It does not refer to whoever it was.'},
+  {s:'Toronto is north of Buffalo.', p:'Buffalo', a:0, e:'A proper name for one city.'},
+  {s:'The largest moon of Saturn has lakes.', p:'The largest moon of Saturn', a:1, e:'‘The largest’ fits at most one thing.'},
+  {s:'A student left the room early.', p:'A student', a:4, e:'‘A student’ does not designate any one student. It only says that some student left.'},
+  {s:'Raj lost his keys, and he is upset.', p:'he', a:2, e:'‘He’ stands in for ‘Raj’.'},
+  {s:'Everything in the box is broken.', p:'Everything', a:3, e:'A quantity expression. It talks about each thing, not one thing.'},
+  {s:'The tallest person in this room is Lena.', p:'The tallest person in this room', a:1, e:'Context fixes the room, and ‘the tallest’ fits at most one person.'},
+  {s:'Omar’s oldest daughter is a chef.', p:'Omar’s oldest daughter', a:1, e:'‘Oldest’ makes it unique: at most one person fits.'},
+  {s:'Something is making noise in the attic.', p:'Something', a:3, e:'It says there is such a thing, without naming it.'},
+  {s:'Mount Everest is taller than K2.', p:'K2', a:0, e:'A proper name for one mountain.'},
+  {s:'A neighbor of Kim’s called.', p:'A neighbor of Kim’s', a:4, e:'Kim may have many neighbors. The phrase does not pick out one of them.'},
+];
+const PLACE_BANK=[
+  ['x is cheerful',1],['x likes y',2],['x sits between y and z',3],['x gave y to z',3],
+  ['x is taller than Lena',1],['Toronto is north of x',1],['x introduced y to z',3],['x is the mother of y',2],
+  ['x is north of y',2],['Frida Kahlo painted x',1],['x sold y to z for w',4],['x borrowed y from Omar',2],
+];
+
+// categorical terms: [letter, singular, plural]
+const CAT_TERMS=[
+  {ud:'animals', none:'Nothing that is', some:'something', a:['B','beetle','beetles'], b:['I','insect','insects']},
+  {ud:'animals', none:'Nothing that is', some:'something', a:['O','owl','owls'], b:['H','hunter','hunters']},
+  {ud:'animals', none:'Nothing that is', some:'something', a:['S','shark','sharks'], b:['P','predator','predators']},
+  {ud:'people', none:'No one who is', some:'someone', a:['D','doctor','doctors'], b:['R','runner','runners']},
+  {ud:'people', none:'No one who is', some:'someone', a:['S','student','students'], b:['A','athlete','athletes']},
+  {ud:'people', none:'No one who is', some:'someone', a:['P','poet','poets'], b:['T','teacher','teachers']},
+  {ud:'people', none:'No one who is', some:'someone', a:['S','senator','senators'], b:['L','lawyer','lawyers']},
+  {ud:'living things', none:'Nothing that is', some:'something', a:['F','fern','ferns'], b:['P','plant','plants']},
+];
+const ST = (q,n1,p1,c,n2,p2,on=0)=>({on,q,n1,p1,c,n2,p2});
+const CAT_T=[
+  {form:'A', st:ST('∀',0,'F','⊃',0,'G'), say:(f,g)=>`All ${f[2]} are ${g[2]}.`},
+  {form:'A', st:ST('∀',0,'F','⊃',0,'G'), say:(f,g)=>`Every ${f[1]} is ${art(g[1])}.`},
+  {form:'A', st:ST('∀',0,'F','⊃',0,'G'), say:(f,g)=>`Any ${f[1]} is ${art(g[1])}.`},
+  {form:'E', st:ST('∀',0,'F','⊃',1,'G'), say:(f,g)=>`No ${f[2]} are ${g[2]}.`},
+  {form:'E', st:ST('∀',0,'F','⊃',1,'G'), say:(f,g)=>`None of the ${f[2]} are ${g[2]}.`},
+  {form:'E', st:ST('∀',0,'F','⊃',1,'G'), say:(f,g,t)=>`${t.none} ${art(f[1])} is ${art(g[1])}.`},
+  {form:'E', st:ST('∀',0,'F','⊃',1,'G'), say:(f,g)=>`${cap(f[2])} are never ${g[2]}.`},
+  {form:'I', st:ST('∃',0,'F','&',0,'G'), say:(f,g)=>`Some ${f[2]} are ${g[2]}.`},
+  {form:'I', st:ST('∃',0,'F','&',0,'G'), say:(f,g)=>`At least one ${f[1]} is ${art(g[1])}.`},
+  {form:'I', st:ST('∃',0,'F','&',0,'G'), say:(f,g)=>`There are ${f[2]} that are ${g[2]}.`},
+  {form:'O', st:ST('∃',0,'F','&',1,'G'), say:(f,g)=>`Some ${f[2]} are not ${g[2]}.`},
+  {form:'O', st:ST('∃',0,'F','&',1,'G'), say:(f,g)=>`Not all ${f[2]} are ${g[2]}.`},
+  {form:'O', st:ST('∃',0,'F','&',1,'G'), say:(f,g)=>`Not every ${f[1]} is ${art(g[1])}.`},
+  {form:'A', only:true, st:ST('∀',0,'G','⊃',0,'F'), say:(f,g)=>`Only ${f[2]} are ${g[2]}.`},
+  {form:'B', st:ST('∀',0,'F','≡',0,'G'), say:(f,g)=>`All and only ${f[2]} are ${g[2]}.`},
+];
+const FORM_LABEL={A:'A: all Fs are G',E:'E: no Fs are G',I:'I: some Fs are G',O:'O: some Fs are not G',B:'All and only (≡)'};
+const FORM_WHY={
+  A:'An A-sentence says every member of one class is in the other. Universal forms pair with ⊃.',
+  E:'An E-sentence says no member of one class is in the other.',
+  I:'An I-sentence says at least one thing is in both classes. Existential forms pair with &.',
+  O:'An O-sentence says at least one member of one class is outside the other. ‘Not all’ and ‘not every’ are O-sentences.',
+  B:'‘All and only’ combines ‘all’ and ‘only’, so it takes a biconditional.',
+};
+const conn = (c,a,b) => c==='&'?a&&b : c==='∨'?a||b : c==='⊃'?(!a||b) : a===b;
+function evalCat(st,kinds){
+  const lit=(n,p,k)=>{ const v=p==='F'?k[0]:k[1]; return n?!v:v; };
+  const inner=k=>conn(st.c,lit(st.n1,st.p1,k),lit(st.n2,st.p2,k));
+  const v = st.q==='∀' ? kinds.every(inner) : kinds.some(inner);
+  return st.on?!v:v;
+}
+const KIND_OF = k => [!!(k&1), !!(k&2)];
+const MODELS = Array.from({length:15},(_,i)=>i+1).map(m=>[0,1,2,3].filter(k=>m&(1<<k)));
+
+// Quick-check questions, by section
+const QC = [
+  { s:"p1", q:"Which of these is a singular term?", o:["‘everyone’","‘the tallest mountain in Peru’","‘is taller than’","‘nobody’"], a:1, e:"A singular term picks out one thing. ‘Everyone’ and ‘nobody’ are quantity words; ‘is taller than’ is a predicate." },
+  { s:"p1", q:"Start with ‘Lisbon is west of Madrid’. Which can you NOT get by deleting singular terms?", o:["‘x is west of Madrid’","‘Lisbon is west of x’","‘x is west of y’","‘Lisbon is x of Madrid’"], a:3, e:"Only singular terms can become gaps. ‘West’ is part of the predicate." },
+  { s:"p1", q:"‘Every member of the chess club plays online. Mia is a member of the chess club. So Mia plays online.’ Why does sentential logic call this valid argument invalid?", o:["Because it really is invalid","Each sentence becomes its own unrelated letter, so the shared name and predicates disappear","Sentential logic can’t handle three sentences","Sentential logic only works when the premises are true"], a:1, e:"In sentential logic it is just C, M, so P. The argument is valid because of the shared name ‘Mia’ and the shared predicates, which only predicate logic can show." },
+  { s:"p1", q:"Which singular term does NOT refer to anything?", o:["‘Frida Kahlo’","‘the present king of Antarctica’","‘the inventor of the telephone’","‘Toronto’"], a:1, e:"Antarctica has no king. In our symbolizations we assume every constant refers to something." },
+  { s:"p2", q:"Which symbol is an individual constant?", o:["{x}","{m}","{M}","{w}"], a:1, e:"Constants are lowercase a through v. Lowercase w, x, y, z are variables, and capitals are predicates." },
+  { s:"p2", q:"Which of these is NOT a formula?", o:["{(∃x)(Fx & Gy)}","{Lxy}","{(∃y)Gx}","{~(∀z)Hz}"], a:2, e:"A quantifier has to bind something: (∃y) can only go in front of a formula that contains y. {Gx} has no y." },
+  { s:"p2", q:"Which of these is NOT a formula?", o:["{(∀x)(Fx ⊃ (∃y)Gxy)}","{(∀x)(Fx ⊃ (∃x)Gx)}","{Fa ⊃ (∀y)Gy}","{(∃z)(Fz ≡ Ga)}"], a:1, e:"You can’t put an x-quantifier in front of a formula that already has one. {(Fx ⊃ (∃x)Gx)} already contains (∃x)." },
+  { s:"p2", q:"Which is NOT a formula?", o:["{(∃b)Hb}","{(∃x)Hx}","{Lbz}","{B}"], a:0, e:"Quantifiers take variables, not constants. {B} on its own is a sentence letter, which is an atomic formula." },
+  { s:"p2", q:"{(∃y)(Gy ∨ Hb)} and {(∃y)Gy ∨ Hb} start with the same symbol. What is the difference?", o:["None, they are the same sentence","The first is quantified; the second is truth-functional with main operator ∨","The first is not a sentence","The second is not a formula"], a:1, e:"Outer parentheses may be dropped, so a formula that starts with a quantifier is not always quantified. In the second, (∃y) covers only {Gy}." },
+  { s:"p3", q:"Which sentence is the contradictory of ‘Some students passed’?", o:["‘No students passed.’","‘Some students did not pass.’","‘All students passed.’","‘Only students passed.’"], a:0, e:"Contradictories always have opposite truth values. E and I are contradictories, and so are A and O." },
+  { s:"p3", q:"Every student passed. Is ‘Some students passed’ true?", o:["Yes. ‘Some’ means at least one","No. ‘Some’ implies ‘not all’","No. ‘Some’ means more than one","It can’t be decided"], a:0, e:"In logic, ‘some’ means at least one and does not imply ‘not all’." },
+  { s:"p3", q:"There are no dragons in the UD. Dx: x is a dragon. Wx: x has wings. Which is true?", o:["{(∃x)(Dx & Wx)}","{(∀x)(Dx ⊃ Wx)}","{(∃x)(Dx & ~Wx)}","None of them"], a:1, e:"When nothing is a dragon, every conditional ‘if x is a dragon…’ has a false antecedent, so the universal sentence is true and the existential ones are false." },
+  { s:"p3", q:"UD: the students in PHIL 270. Px: x passed. Symbolize ‘Everyone passed.’", o:["{(∀x)(Sx ⊃ Px)}","{(∀x)Px}","{(∃x)Px}","{Pe}"], a:1, e:"When the UD is only students, no ‘student’ predicate is needed." },
+  { s:"p4", q:"Tomas hopes to find a four-leaf clover. Any one would do, and there may be none in the field. Which is best?", o:["{(∃y)(Cy & Hty)}","{(∀y)(Cy ⊃ Hty)}","{Ft}, with Fx: x hopes to find a four-leaf clover","{Htc}, with c: the clover"], a:2, e:"No particular clover is sought, and there may be none. Put that language inside a one-place predicate." },
+  { s:"p4", q:"Nadia is looking for her lost phone. Px: x is a phone. Oxy: x owns y. Lxy: x is looking for y. Which form fits?", o:["An atomic sentence like {Ln}","{(∃y)[(Py & Ony) & Lny]}","{(∀y)[(Py & Ony) ⊃ Lny]}","None, since the phone may not exist"], a:1, e:"A particular phone exists and is sought, so use an existential quantifier." },
+  { s:"p4", q:"Which phrase should be symbolized as one predicate instead of being split in two?", o:["‘red apple’","‘small elephant’","‘wooden table’","‘French poet’"], a:1, e:"A small elephant is still a large animal. Split an adjective off only when its meaning doesn’t depend on the noun." },
+  { s:"p4", q:"UD: people and songs. Px: x is a person. Kxy: x knows y. Symbolize ‘Someone knows both the school song (s) and the anthem (n).’", o:["{(∃x)(Px & Kxs) & (∃x)(Px & Kxn)}","{(∃x)(Kxs & Kxn)}","{(∃x)[Px & (Kxs & Kxn)]}","{(∀x)[Px ⊃ (Kxs & Kxn)]}"], a:2, e:"One person knows both. The first option allows two different people; the second lets ‘someone’ pick out a song." },
+  { s:"p4", q:"UD: people. Lxy: x likes y. Which says ‘There is someone whom everyone likes’?", o:["{(∀x)(∃y)Lxy}","{(∃x)(∀y)Lyx}","{(∀y)(∃x)Lyx}","{(∃x)(∀y)Lxy}"], a:1, e:"One person x is such that every y likes x. So (∃x) comes first and x goes in the second place." },
+  { s:"p4", q:"Which is equivalent to {(∃x)Fx ⊃ Ga}?", o:["{(∃x)(Fx ⊃ Ga)}","{(∀x)(Fx ⊃ Ga)}","{(∀x)Fx ⊃ Ga}","It has no equivalent with the quantifier in front"], a:1, e:"A quantifier in the antecedent flips when it moves out: ∃ becomes ∀." },
+  { s:"p3", q:"Which is equivalent to {(∀x)(Fx ⊃ ~Gx)}, ‘No Fs are G’?", o:["{~(∃x)(Fx & Gx)}","{~(∀x)(Fx ⊃ Gx)}","{(∃x)(Fx & ~Gx)}","{(∀x)(~Fx ⊃ Gx)}"], a:0, e:"No Fs are G means there is no F that is G." },
+];
+
+// ===== App state =====
+let view='home', ex=null;
+const app=document.getElementById('app');
+const VIEWS={};
+function render(){ app.innerHTML=VIEWS[view](); }
+function go(v,arg){ view=v; ex=NEW[v]?NEW[v](arg):null; render(); window.scrollTo(0,0); }
+// Fixed class set: how many exercises each activity has. Same for everyone.
+const SET={name:3, read:2, sub:2, cat:4, order:4, move:3};
+const QC_N=3; // quick-check questions per part in the class set
+const ACT_NAME={name:'Name the expression',read:'Read a formula',sub:'Substitution instances',cat:'Symbolize a sentence',order:'Quantifier order',move:'Move a quantifier',qc:'Quick check'};
+const isLast = () => SET[view] ? ex.k+1>=SET[view] : (view==='qc' && ex.i+1>=ex.order.length);
+const NEW={};
+// Inside a Candy Challenge round, the back link quits the round instead.
+const backHome = { toString(){ return game ? `<button class="back" data-act="quit-game">‹ Quit round</button>` : `<button class="back" data-go="home">‹ All sections</button>`; } };
+const head = (title,id) => game ? gameBar(title) : `<div class="ex-head"><h2>${title}</h2><span class="score">${sc(id)}</span></div>${SET[view]?`<p class="muted exnum">Exercise ${ex.k+1} of ${SET[view]}</p>`:''}`;
+const nextBtn = label => `<div class="next"><button class="btn" data-act="next">${game ? (game.answered ? (game.i+1<game.items.length?'Next question':'See my score') : 'Skip') : (isLast()?'Finish':label)}</button></div>`;
+const fb = (ok,title,body='') => `<div class="fb ${ok?'good':'bad'}" role="status"><strong>${title}</strong>${body}</div>`;
+
+// ===== Decorative symbol layer (seeded so it stays put between renders) =====
+function symLayer(n, seed, cls){
+  let x=seed; const rnd=()=>((x=(x*16807)%2147483647)/2147483647);
+  const G=['∀','∃','⊃','≡','~','&','∨','x','y','F','(∀x)','(∃y)'];
+  let out='';
+  for(let i=0;i<n;i++) out+=`<span style="left:${(rnd()*100).toFixed(1)}%;top:${(rnd()*100).toFixed(1)}%;font-size:${(18+rnd()*46).toFixed(0)}px;--r:${(rnd()*40-20).toFixed(0)}deg">${esc(G[Math.floor(rnd()*G.length)])}</span>`;
+  return `<div class="syms ${cls||''}" aria-hidden="true">${out}</div>`;
+}
+
+// ===== Home =====
+VIEWS.home = () => {
+  const t=(go,arg,ico,name,sub,id,verb='Practice')=>`<li><button class="topic" data-go="${go}" ${arg?`data-arg="${arg}"`:''}><span class="t-ico${ico.length>2?' small':''}" aria-hidden="true">${esc(ico)}</span><span>${name}<small>${sub}${soFar(id)}</small></span><span class="go">${verb} →</span></button></li>`;
+  const part=(n,title,items)=>`<li class="level part-${n}"><div class="part-head"><span class="part-badge" aria-hidden="true">${n}</span><h2>${title}</h2><span class="level-num">Part ${n}</span></div><ul class="topics">${items}</ul></li>`;
+  return `
+  <header class="mast">
+    ${symLayer(16, 7)}
+    <p class="kicker">PHIL 270 · Symbolic Logic</p>
+    <h1>Class 12<span class="f" aria-hidden="true">∀∃</span></h1>
+    <p class="mast-tag">Review of all four parts: about 50 minutes of exercises, then the Candy Challenge. Everyone gets the same exercises, so we can work through them together.</p>
+    <button class="candy-cta" data-go="gameStart"><span class="candy-ico" aria-hidden="true">🍬</span><span><b>Candy Challenge</b><small>10 questions, ${GAME_MIN} minutes. Get 8 or more right to earn candy.${progress.candy?` You’ve earned candy ${progress.candy} ${progress.candy===1?'time':'times'}.`:''}</small></span><span class="go-light">Play</span></button>
+  </header>
+  <ol class="levels">
+    ${part(1, SECTIONS['p1'],
+      t('name','','Aa','Name the expression',`${SET.name} exercises · singular terms and predicate places`,'name','Start')+
+      t('qc','p1','?','Quick check',`${QC_N} questions on part 1`,'qc-p1','Start'))}
+    ${part(2, SECTIONS['p2'],
+      t('read','','⊃','Read a formula',`${SET.read} exercises · type, main operator, free variables`,'read','Start')+
+      t('sub','','x→a','Substitution instances',`${SET.sub} exercises · drop the first quantifier, one constant throughout`,'sub','Start')+
+      t('qc','p2','?','Quick check',`${QC_N} questions on part 2`,'qc-p2','Start'))}
+    ${part(3, SECTIONS['p3'],
+      t('cat','','∀','Symbolize a sentence',`${SET.cat} exercises · name the form, then build the formula`,'cat','Start')+
+      t('qc','p3','?','Quick check',`${QC_N} questions on part 3`,'qc-p3','Start'))}
+    ${part(4, SECTIONS['p4'],
+      t('order','','∀∃','Quantifier order',`${SET.order} exercises · everyone, someone, and who goes first`,'order','Start')+
+      t('move','','⇄','Move a quantifier',`${SET.move} exercises · when it keeps its type, flips, or can’t move`,'move','Start')+
+      t('qc','p4','?','Quick check',`${QC_N} questions on part 4`,'qc-p4','Start'))}
+  </ol>`;
+};
+
+// ===== Name the expression =====
+// Class set: definite description, quantity expression, pronoun, none of these.
+const NAME_PLAN=[6,4];
+NEW.name = (k=-1) => {
+  // Class set: 3 "what kind of expression" items, then 1 predicate-places item.
+  if(k>=0){
+    if(k===SET.name-1){ const [p,n]=PLACE_BANK[2]; return {mode:'place', p, n, pickd:null}; }
+    return {mode:'kind', item:NAME_BANK[NAME_PLAN[k]], pickd:null};
+  }
+  if(R()<0.35){ const [p,n]=pick(PLACE_BANK); return {mode:'place', p, n, pickd:null}; }
+  return {mode:'kind', item:pick(NAME_BANK), pickd:null};
+};
+VIEWS.name = () => {
+  const e=ex;
+  let body;
+  if(e.mode==='kind'){
+    const it=e.item, i=it.s.indexOf(it.p);
+    const sent=esc(it.s.slice(0,i))+`<mark>${esc(it.p)}</mark>`+esc(it.s.slice(i+it.p.length));
+    const btns=KINDS.map((k,ix)=>{ let c='choice'; if(e.pickd!==null){ if(ix===it.a) c+=' right'; else if(ix===e.pickd) c+=' wrong'; } return `<button class="${c}" data-pick="${ix}" ${e.pickd!==null?'disabled':''}>${k}</button>`; }).join('');
+    body=`<p class="prop">${sent}</p>
+      <section class="step"><h3>What kind of expression is the highlighted phrase?</h3>
+      <p class="hint">Proper names, definite descriptions, and pronouns that cross-refer are singular terms. Quantity expressions are not.</p>
+      <div class="choices">${btns}</div>
+      ${e.pickd!==null?fb(e.pickd===it.a, e.pickd===it.a?'Correct.':`It’s: ${KINDS[it.a].toLowerCase()}.`, ' '+esc(it.e)):''}</section>`;
+  } else {
+    const btns=[1,2,3,4].map(k=>{ let c='choice'; if(e.pickd!==null){ if(k===e.n) c+=' right'; else if(k===e.pickd) c+=' wrong'; } return `<button class="${c}" data-pick="${k}" ${e.pickd!==null?'disabled':''}><b>${k}</b>${k===1?'place':'places'}</button>`; }).join('');
+    const gaps=(e.p.match(/\b[wxyz]\b/g)||[]);
+    body=`<p class="prop">‘${esc(e.p)}’</p>
+      <section class="step"><h3>How many places does this predicate have?</h3>
+      <p class="hint">Count the gaps. Each one is a spot where a singular term can go.</p>
+      <div class="choices">${btns}</div>
+      ${e.pickd!==null?fb(e.pickd===e.n, e.pickd===e.n?'Correct.':`It’s a ${e.n}-place predicate.`, ` The gaps are ${gaps.map(g=>'‘'+g+'’').join(', ')}. Names already in the predicate, like a city or a person, are not gaps.`):''}</section>`;
+  }
+  return `${backHome}${head('Name the expression','name')}${body}${nextBtn('Next one')}`;
+};
+
+// ===== Read a formula =====
+// Class set: quantified with a free variable; truth-functional with a free variable; a negated sentence.
+const READ_SET=()=>[
+  Bn('&',Qf('∃','y',At('F','y')),At('G','x')),
+  Ng(Qf('∀','x',Bn('⊃',At('F','x'),Qf('∃','y',At('R','x','y'))))),
+];
+NEW.read = (k=-1) => {
+  if(k>=0){ const f=READ_SET()[k]; return {f, toks:tokens(f), type:null, main:null, free:new Set(), freeChecked:false, sent:null, done:false}; }
+  const wantSentence=R()<0.5;
+  let f;
+  for(let i=0;i<400;i++){
+    f=gen(3,[]); const s=str(f);
+    if(s.length<5||s.length>32) continue;
+    if(f.t==='atom'&&R()<0.85) continue;
+    if((freeCount(f)===0)!==wantSentence) continue;
+    break;
+  }
+  return {f, toks:tokens(f), type:null, main:null, free:new Set(), freeChecked:false, sent:null, done:false};
+};
+function formulaHTML(toks, mode, e){
+  const mainIdx = toks.findIndex(t=>t.node===e.f);
+  return `<div class="formula" aria-label="${esc(str(e.f))}">`+toks.map((t,i)=>{
+    const sp=t.bin?'<span class="sp"></span>':'';
+    let cls='tok', tap=false;
+    if(mode==='main' && t.k==='op'){
+      if(e.main===null){ cls+=' tap'; tap=true; }
+      else { if(i===mainIdx) cls+=' right'; else if(i===e.main) cls+=' wrong'; }
+    }
+    if(mode==='free' && t.k==='var'){
+      if(!e.freeChecked){ cls+=' tap'; tap=true; if(e.free.has(i)) cls+=' sel'; }
+      else { if(t.free) cls+=' right'; else if(e.free.has(i)) cls+=' wrong'; }
+    }
+    const inner = tap ? `<button class="${cls}" data-act="${mode}" data-i="${i}" aria-pressed="${mode==='free'&&e.free.has(i)}">${esc(t.s)}</button>` : `<span class="${cls}">${esc(t.s)}</span>`;
+    return sp+inner+sp;
+  }).join('')+`</div>`;
+}
+VIEWS.read = () => {
+  const e=ex, f=e.f, type=typeOf(f), toks=e.toks, mainIdx=toks.findIndex(t=>t.node===f);
+  const typeBtns=['Atomic','Truth-functional','Quantified'].map(k=>{ let c='choice'; if(e.type){ if(k===type) c+=' right'; else if(k===e.type) c+=' wrong'; } return `<button class="${c}" data-type="${k}" ${e.type?'disabled':''}>${k}</button>`; }).join('');
+  const mainOp = mainIdx>=0 ? toks[mainIdx].s : null;
+  const typeWhy = f.t==='atom' ? ' An atomic formula is a predicate followed by its terms, with no logical operator.' : f.t==='q' ? ` Its main operator is the quantifier ${F(mainOp)}.` : ` Its main operator is the connective ${F(mainOp)}.`;
+  let mainWhy='';
+  if(f.t==='not') mainWhy=' The ~ at the front applies to everything after it.';
+  else if(f.t==='bin') mainWhy=` Outer parentheses are dropped. ${F(f.op)} joins ${F(str(f.l))} and ${F(str(f.r))}.`;
+  else if(f.t==='q') mainWhy=` The scope of ${F(mainOp)} is the whole formula.`;
+  // Step 2
+  let step2;
+  if(f.t==='atom'){
+    step2 = `<p class="hint">Tap the operator that governs the whole formula, or say there isn’t one.</p>${formulaHTML(toks,'main',e)}
+      <div class="actions"><button class="btn ghost" data-act="main-none" ${e.main!==null?'disabled':''}>It has no main operator</button></div>
+      ${e.main!==null?fb(e.main==='none', e.main==='none'?'Correct.':'It has no main operator.', ' Atomic formulas have no logical operators at all.'):''}`;
+  } else {
+    step2 = `<p class="hint">Tap the operator that governs the whole formula.</p>${formulaHTML(toks,'main',e)}
+      <div class="actions"><button class="btn ghost" data-act="main-none" ${e.main!==null?'disabled':''}>It has no main operator</button></div>
+      ${e.main!==null?fb(e.main===mainIdx, e.main===mainIdx?'Correct.':`The main operator is ${F(mainOp)}.`, mainWhy):''}`;
+  }
+  // Step 3
+  const freeIdx=toks.map((t,i)=>t.free?i:-1).filter(i=>i>=0);
+  const freeOk = e.freeChecked && freeIdx.length===e.free.size && freeIdx.every(i=>e.free.has(i));
+  const qs=quants(f);
+  const scopes = qs.length ? `<ul>${qs.map(q=>`<li>The scope of ${F('('+q.q+q.v+')')} is ${F(str(q))}.</li>`).join('')}</ul>` : ' There are no quantifiers, so every variable is free.';
+  const nVars=toks.filter(t=>t.k==='var').length;
+  const step3 = nVars===0
+    ? `<p class="hint">This formula has no variables, so none can be free.</p>`
+    : `<p class="hint">Tap every free occurrence of a variable. If none are free, just check.</p>${formulaHTML(toks,'free',e)}
+      <div class="actions"><button class="btn" data-act="check-free" ${e.freeChecked?'disabled':''}>Check</button></div>
+      ${e.freeChecked?fb(freeOk, freeOk?(freeIdx.length?`Correct: ${freeIdx.length} free.`:'Correct: none are free.'):(freeIdx.length?`${freeIdx.length} ${freeIdx.length===1?'occurrence is':'occurrences are'} free (in green).`:'None are free.'), ' An occurrence is bound only inside the scope of a quantifier with the same letter.'+scopes):''}`;
+  // Step 4
+  const isSent=freeIdx.length===0;
+  const sBtns=[[true,'Yes, it’s a sentence'],[false,'No, it’s not']].map(([v,l])=>{ let c='choice'; if(e.sent!==null){ if(v===isSent) c+=' right'; else if(v===e.sent) c+=' wrong'; } return `<button class="${c}" data-sent="${v}" ${e.sent!==null?'disabled':''}>${l}</button>`; }).join('');
+  return `${backHome}${head('Read a formula','read')}
+  <div class="formula">${esc(str(f)).replace(/ /g,'&nbsp;')}</div>
+  <section class="step"><h3>1. What type of formula is it?</h3><div class="choices three">${typeBtns}</div>
+    ${e.type?fb(e.type===type, e.type===type?'Correct.':`It’s ${type.toLowerCase()}.`, typeWhy):''}</section>
+  <section class="step"><h3>2. Main logical operator</h3>${step2}</section>
+  <section class="step"><h3>3. Free variables</h3>${step3}</section>
+  <section class="step"><h3>4. Is it a sentence?</h3><p class="hint">A sentence is a formula with no free variables.</p><div class="choices">${sBtns}</div>
+    ${e.sent!==null?fb(e.sent===isSent, e.sent===isSent?'Correct.':(isSent?'It is a sentence.':'It is not a sentence.'), isSent?' No occurrence of a variable is free.':` It has ${freeIdx.length} free ${freeIdx.length===1?'occurrence':'occurrences'}.`):''}</section>
+  ${nextBtn('Next formula')}`;
+};
+
+// ===== Substitution instances =====
+NEW.sub = () => {
+  for(let tries=0;tries<500;tries++){
+    const v=pick(VARS), body=gen(2,[v]);
+    const occ=countVar(body,v); if(occ<1) continue;
+    const root=Qf(pick(['∀','∃']),v,body);
+    if(freeCount(root)>0) continue;
+    const s=str(root); if(s.length>30||s.length<6) continue;
+    if(occ<2 && body.t!=='q' && R()<0.7) continue;
+    const negate=R()<0.18;
+    const [c1,c2]=shuffle(CONSTS).slice(0,2);
+    const qs=`(${root.q}${v})`;
+    const cands=[];
+    const add=(node,ok,why)=>{ const st=str(node); if(!cands.some(c=>c.s===st)&&st!==s) cands.push({s:st,ok,why}); };
+    add(subst(body,v,()=>c1), true, `Drop ${qs} and replace every ${v} with ${c1}.`);
+    const wrongs=[];
+    if(occ>=2){
+      wrongs.push([subst(body,v,i=>i===0?c1:null), `Only the first ${v} was replaced. The others are left free.`]);
+      wrongs.push([subst(body,v,i=>i%2?c2:c1), `Every freed ${v} must get the same constant. This one uses ${c1} and ${c2}.`]);
+    }
+    if(body.t==='q') wrongs.push([subst(subst(body.a,body.v,()=>c2),v,()=>c1), `This drops two quantifiers. Only the initial one goes.`]);
+    wrongs.push([Qf(root.q,v,subst(body,v,()=>c1)), `The initial quantifier has to be dropped. Keeping it leaves a quantifier with no ${v} to bind.`]);
+    if(R()<0.5) add(subst(body,v,()=>c2), true, `Drop ${qs} and replace every ${v} with ${c2}. Any constant works if it is used throughout.`);
+    shuffle(wrongs).forEach(([n,w])=>{ if(cands.length<4) add(n,false,w); });
+    if(cands.length<3) continue;
+    const shown = negate ? Ng(root) : root;
+    if(negate) cands.forEach(c=>{ c.ok=false; c.why = `The sentence is a negation, not a quantified sentence, so it has no substitution instances.`; });
+    return {root:shown, negate, cands:shuffle(cands), sel:new Set(), none:false, checked:false, counted:false};
+  }
+};
+VIEWS.sub = () => {
+  const e=ex;
+  const okSet=e.cands.map((c,i)=>c.ok?i:-1).filter(i=>i>=0);
+  const correct = e.checked && (e.negate ? (e.none && e.sel.size===0) : (!e.none && okSet.length===e.sel.size && okSet.every(i=>e.sel.has(i))));
+  const items=e.cands.map((c,i)=>{
+    let cls='choice';
+    if(e.checked){ if(c.ok) cls+=' right'; else if(e.sel.has(i)) cls+=' wrong'; }
+    else if(e.sel.has(i)) cls+=' picked';
+    return `<label class="${cls} check"><input type="checkbox" id="sub-${i}" data-subsel="${i}" ${e.sel.has(i)?'checked':''} ${e.checked?'disabled':''}><span><span class="f">${esc(c.s)}</span>${e.checked?`<span class="why">${c.ok?'✓ ':'✗ '}${fmt(c.why)}</span>`:''}</span></label>`;
+  }).join('');
+  const noneCls = 'choice check'+(e.checked?(e.negate?' right':(e.none?' wrong':'')):(e.none?' picked':''));
+  return `${backHome}${head('Substitution instances','sub')}
+  <div class="formula">${esc(str(e.root)).replace(/ /g,'&nbsp;')}</div>
+  <section class="step"><h3>Select every substitution instance</h3>
+    <p class="hint">Drop only the initial quantifier, then replace every freed occurrence of its variable with the same constant.</p>
+    <div class="choices one">${items}
+      <label class="${noneCls}"><input type="checkbox" id="sub-none" data-subnone="1" ${e.none?'checked':''} ${e.checked?'disabled':''}><span>None of these is a substitution instance</span></label>
+    </div>
+    <div class="actions"><button class="btn" data-act="check-sub" ${e.checked?'disabled':''}>Check</button></div>
+    ${e.checked?fb(correct, correct?'Correct.':'Not quite.', e.negate?' The main operator is ~. Only sentences whose main operator is a quantifier have substitution instances.':' The reason for each option is shown above.'):''}
+  </section>${nextBtn('Next sentence')}`;
+};
+
+// ===== Symbolize a sentence =====
+// Class set covers A, E, I, O, and 'only': Every…, No…, Some…, Not all…, Only…
+const CAT_PLAN=[{tpl:3,t:3,flip:false},{tpl:8,t:5,flip:false},{tpl:11,t:4,flip:false},{tpl:13,t:7,flip:true}];
+NEW.cat = (k=-1) => {
+  const P=k>=0?CAT_PLAN[k]:null;
+  const t=P?CAT_TERMS[P.t]:pick(CAT_TERMS), flip=P?P.flip:R()<0.5, f=flip?t.b:t.a, g=flip?t.a:t.b, tpl=P?CAT_T[P.tpl]:pick(CAT_T);
+  return {t,f,g,tpl,text:tpl.say(f,g,t),form:null,b:{on:0,q:'',n1:0,p1:'',c:'',n2:0,p2:''},checked:false,counted:false,result:null};
+};
+const catStr = (st,e) => {
+  const L=p=>p===''?'?':(p==='F'?e.f[0]:e.g[0]);
+  return `${st.on?'~':''}(${st.q||'?'}x)(${st.n1?'~':''}${L(st.p1)}x ${st.c||'?'} ${st.n2?'~':''}${L(st.p2)}x)`;
+};
+function kindDesc(k,e){
+  const [isF,isG]=KIND_OF(k), f=e.f[1], g=e.g[1], who=e.t.ud==='people'?'someone who':'something that';
+  if(isF&&isG) return `${art(f)} that is ${art(g)}`;
+  if(isF) return `${art(f)} that is not ${art(g)}`;
+  if(isG) return `${art(g)} that is not ${art(f)}`;
+  return `${who} is neither ${art(f)} nor ${art(g)}`;
+}
+VIEWS.cat = () => {
+  const e=ex, b=e.b;
+  const formBtns=['A','E','I','O','B'].map(k=>{ let c='choice'; if(e.form){ if(k===e.tpl.form) c+=' right'; else if(k===e.form) c+=' wrong'; } return `<button class="${c}" data-form="${k}" ${e.form?'disabled':''}>${FORM_LABEL[k]}</button>`; }).join('');
+  const formFb = e.form ? fb(e.form===e.tpl.form, e.form===e.tpl.form?'Correct.':`It’s ${e.tpl.form==='B'?'an “all and only” sentence':'an '+e.tpl.form+'-sentence'}.`, ' '+(e.tpl.only?`‘Only Fs are G’ means ‘All Gs are F’. It’s an A-sentence with the term after ‘only’ in the consequent.`:FORM_WHY[e.tpl.form])) : '';
+  const sel=(name,opts,val)=>`<select id="cat-${name}" data-b="${name}" aria-label="${name}" ${e.result?.ok?'disabled':''}>${opts.map(([v,l])=>`<option value="${v}" ${String(v)===String(val)?'selected':''}>${l}</option>`).join('')}</select>`;
+  const neg=(n)=>sel(n,[[0,'–'],[1,'~']],b[n]);
+  const pred=(n)=>sel(n,[['','?'],['F',e.f[0]],['G',e.g[0]]],b[n]);
+  const ready=b.q&&b.p1&&b.c&&b.p2;
+  const builder=`<div class="builder">${neg('on')}<span>(</span>${sel('q',[['','?'],['∀','∀'],['∃','∃']],b.q)}<span>x)(</span>${neg('n1')}${pred('p1')}<span>x</span>${sel('c',[['','?'],['⊃','⊃'],['&','&'],['∨','∨'],['≡','≡']],b.c)}${neg('n2')}${pred('p2')}<span>x)</span></div>
+    <p class="preview">Your formula: <span class="f">${esc(catStr(b,e))}</span></p>`;
+  let res='';
+  if(e.result){
+    const r=e.result;
+    if(r.ok) res=fb(true,'Correct.', r.same?'':` That’s equivalent to the standard form ${F(catStr(e.tpl.st,e))}.`);
+    else {
+      let hint='';
+      if(b.q==='∀'&&b.c==='&') hint=` ∀ with & says everything in the UD is ${art(b.p1==='F'?e.f[1]:e.g[1])}. Universal forms pair with ⊃.`;
+      else if(b.q==='∃'&&b.c==='⊃') hint=` ∃ with ⊃ is true as soon as anything fails the antecedent. Existential forms pair with &.`;
+      else if(e.tpl.only&&b.q==='∀'&&b.c==='⊃'&&b.p1==='F'&&b.p2==='G'&&!b.n1&&!b.n2&&!b.on) hint=` ‘Only’ reverses the direction. The term after ‘only’ goes in the consequent.`;
+      const m=r.counter;
+      const ce=` Suppose the UD contains only ${m.kinds.map(k=>kindDesc(k,e)).join(' and ')}. Then the English sentence is ${m.eng?'true':'false'}, but your formula is ${m.mine?'true':'false'}.`;
+      res=fb(false,'Not quite.', hint+ce+' Change the formula and check again.');
+    }
+  }
+  return `${backHome}${head('Symbolize a sentence','cat')}
+  <p class="prop">${esc(e.text)}</p>
+  <div class="key"><span>UD: ${esc(e.t.ud)}</span><span><b>${e.f[0]}x</b>: x is ${art(e.f[1])}</span><span><b>${e.g[0]}x</b>: x is ${art(e.g[1])}</span></div>
+  <section class="step"><h3>1. Which form is it?</h3><div class="choices">${formBtns}</div>${formFb}</section>
+  <section class="step"><h3>2. Build the formula</h3><p class="hint">Pick each part. Any equivalent formula counts as correct.</p>${builder}
+    <div class="actions"><button class="btn" data-act="check-cat" ${!ready||e.result?.ok?'disabled':''}>Check</button></div>${res}</section>
+  ${nextBtn('Next sentence')}`;
+};
+
+// ===== Part 4: Quantifier order =====
+// Class set: everyone/someone, someone/everyone, someone whom everyone…, no one… everyone.
+const ORDER_PLAN=[[0,0],[1,1],[2,2],[6,3]];
+NEW.order = (k=-1) => ({v:k>=0?VERBS[ORDER_PLAN[k][1]]:pick(VERBS), tpl:k>=0?ORDER_T[ORDER_PLAN[k][0]]:pick(ORDER_T), b:{on:0,q1:'',n2:0,q2:'',n3:0,ord:''}, result:null, counted:false});
+const ordStr = (st,L) => `${st.on?'~':''}(${st.q1||'?'}x)${st.n2?'~':''}(${st.q2||'?'}y)${st.n3?'~':''}${L}${st.ord||'??'}`;
+VIEWS.order = () => {
+  const e=ex, b=e.b, L=e.v.L;
+  const sel=(name,opts)=>`<select id="ord-${name}" data-o="${name}" aria-label="${name}" ${e.result?.ok?'disabled':''}>${opts.map(([v,l])=>`<option value="${v}" ${String(v)===String(b[name])?'selected':''}>${l}</option>`).join('')}</select>`;
+  const neg=n=>sel(n,[[0,'–'],[1,'~']]);
+  const ready=b.q1&&b.q2&&b.ord;
+  let res='';
+  if(e.result){
+    if(e.result.ok) res=fb(true,'Correct.',' '+esc(e.tpl.e(e.v)));
+    else {
+      const m=e.result.counter, names=PEOPLE.slice(0,m.n);
+      const pairs=[]; for(let a=0;a<m.n;a++) for(let c=0;c<m.n;c++) if((m.R>>(a*m.n+c))&1) pairs.push(`${names[a]} ${e.v.vs} ${a===c?'themself':names[c]}`);
+      const ud = m.n===1?`just ${names[0]}`:names.slice(0,-1).join(', ')+' and '+names[m.n-1];
+      const rel = pairs.length?`the only facts are: ${pairs.join('; ')}`:`nobody ${e.v.vs} anybody`;
+      const eng = evalRel(e.tpl.st,m.n,m.R);
+      res=fb(false,'Not quite.',` Suppose the UD is ${ud}, and ${rel}. Then the English sentence is ${eng?'true':'false'}, but your formula is ${eng?'false':'true'}. Change the formula and check again.`);
+    }
+  }
+  return `${backHome}${head('Quantifier order','order')}
+  <p class="prop">${esc(e.tpl.say(e.v))}</p>
+  <div class="key"><span>UD: people</span><span><b>${L}xy</b>: x ${e.v.vs} y</span></div>
+  <section class="step"><h3>Build the formula</h3><p class="hint">With mixed quantifiers, order matters. Decide which comes first and which variable goes in which place.</p>
+    <div class="builder">${neg('on')}<span>(</span>${sel('q1',[['','?'],['∀','∀'],['∃','∃']])}<span>x)</span>${neg('n2')}<span>(</span>${sel('q2',[['','?'],['∀','∀'],['∃','∃']])}<span>y)</span>${neg('n3')}<span>${L}</span>${sel('ord',[['','??'],['xy','xy'],['yx','yx']])}</div>
+    <p class="preview">Your formula: <span class="f">${esc(ordStr(b,L))}</span></p>
+    <div class="actions"><button class="btn" data-act="check-order" ${!ready||e.result?.ok?'disabled':''}>Check</button></div>${res}</section>
+  ${nextBtn('Next sentence')}`;
+};
+
+// ===== Part 4: Move a quantifier =====
+// Class set: consequent (keeps its type), antecedent (flips), biconditional (can't move).
+const MOVE_PLAN=[['cons','∀'],['ante','∃'],['bic','∃']];
+NEW.move = (k=-1) => {
+  const [P,G]=shuffle(['F','G','H']).slice(0,2), c=pick(CONSTS.slice(0,3));
+  const q=k>=0?MOVE_PLAN[k][1]:pick(['∀','∃']);
+  const pos=k>=0?MOVE_PLAN[k][0]:pick(['andL','andR','or','cons','ante','ante','bic']);
+  const side=`${P}${c}`, qp=`(${q}x)${G}x`, flip=q==='∀'?'∃':'∀';
+  const M={
+    andL:{s:`${side} & ${qp}`, ans:q, res:`(${q}x)(${side} & ${G}x)`, why:`${side} has no x, so the quantifier can move over & and keeps its type.`},
+    andR:{s:`${qp} & ${side}`, ans:q, res:`(${q}x)(${G}x & ${side})`, why:`${side} has no x, so the quantifier can move over & and keeps its type.`},
+    or:{s:`${side} ∨ ${qp}`, ans:q, res:`(${q}x)(${side} ∨ ${G}x)`, why:`A quantifier joined by ∨ to a formula with no x keeps its type when it moves.`},
+    cons:{s:`${side} ⊃ ${qp}`, ans:q, res:`(${q}x)(${side} ⊃ ${G}x)`, why:`The quantifier is in the consequent, so it keeps its type.`},
+    ante:{s:`${qp} ⊃ ${side}`, ans:flip, res:`(${flip}x)(${G}x ⊃ ${side})`, why:q==='∃'?`The quantifier is in the antecedent, so it flips: ∃ becomes ∀. Compare ‘If anyone sings, Ana sings’: it means ‘Everyone is such that if they sing, Ana sings.’`:`The quantifier is in the antecedent, so it flips: ∀ becomes ∃. You can see why from the equivalent ~${qp} ∨ ${side}.`},
+    bic:{s:`${qp} ≡ ${side}`, ans:'none', res:null, why:`A quantifier on one side of ≡ can’t, in general, be broadened over the whole biconditional. Neither (∀x) nor (∃x) gives an equivalent sentence.`},
+  }[pos];
+  return {...M, pickd:null};
+};
+VIEWS.move = () => {
+  const e=ex;
+  const opts=[['∀','(∀x)'],['∃','(∃x)'],['none','It can’t be moved']].map(([v,l])=>{ let c='choice'; if(e.pickd){ if(v===e.ans) c+=' right'; else if(v===e.pickd) c+=' wrong'; } return `<button class="${c}" data-move="${v}" ${e.pickd?'disabled':''}>${v==='none'?l:F(l)}</button>`; }).join('');
+  return `${backHome}${head('Move a quantifier','move')}
+  <div class="formula">${esc(e.s).replace(/ /g,'&nbsp;')}</div>
+  <section class="step"><h3>Extend the quantifier over the whole sentence</h3>
+    <p class="hint">Which quantifier does the equivalent sentence start with?</p>
+    <div class="choices three">${opts}</div>
+    ${e.pickd?fb(e.pickd===e.ans, e.pickd===e.ans?'Correct.':(e.ans==='none'?'It can’t be moved.':`It becomes ${F('('+e.ans+'x)')}.`), (e.res?` Equivalent sentence: ${F(e.res)}. `:' ')+esc(e.why)):''}
+  </section>${nextBtn('Next sentence')}`;
+};
+
+// ===== Quick check =====
+NEW.qc = (sec) => {
+  const pool = QC.map((_,i)=>i).filter(i=>sec==='all'||QC[i].s===sec);
+  return {sec, order:withSeed('qc-'+sec,()=>shuffle(pool)).slice(0,sec==='all'?99:QC_N), i:0, opt:null, pickd:null};
+};
+// Wrap the generated activities so exercise k is the same for every student.
+for(const v of Object.keys(SET)){
+  const raw=NEW[v];
+  NEW[v]=(k=0,key)=>{ k=+k||0; const e=withSeed(key||`${v}-${k}`,()=>raw(key?-1:k)); e.k=k; return e; };
+}
+VIEWS.qc = () => {
+  const e=ex, idx=e.order[e.i], q=QC[idx];
+  if(!e.opt) e.opt=withSeed('opt-'+idx,()=>shuffle([0,1,2,3]));
+  const id='qc-'+e.sec;
+  const btns=e.opt.map((oi,pos)=>{ let c='choice'; if(e.pickd!==null){ if(oi===q.a) c+=' right'; else if(oi===e.pickd) c+=' wrong'; } return `<button class="${c}" data-qc="${oi}" ${e.pickd!==null?'disabled':''}><b>${'ABCD'[pos]}</b>${fmt(q.o[oi])}</button>`; }).join('');
+  const title = game?`Quick question · ${PARTN[q.s]}`:e.sec==='all'?'Mixed quick check':`Quick check · ${PARTN[e.sec]}`;
+  return `${backHome}${head(title,id)}
+  ${game?'':`<p class="muted">Question ${e.i+1} of ${e.order.length}${e.sec==='all'?` · ${PARTN[q.s]}`:''}</p>`}
+  <p class="prop">${fmt(q.q)}</p>
+  <section class="step"><div class="choices one">${btns}</div>
+    ${e.pickd!==null?fb(e.pickd===q.a, e.pickd===q.a?'Correct.':`The answer is ${'ABCD'[e.opt.indexOf(q.a)]}.`, ' '+fmt(q.e)):''}</section>
+  ${nextBtn('Next question')}`;
+};
+
+// ===== Finished a set =====
+let doneInfo=null;
+NEW.done = info => { doneInfo=info; return null; };
+VIEWS.done = () => {
+  const d=doneInfo, nm=d.v==='qc'?`Quick check · ${PARTN[d.sec]||'Mixed'}`:ACT_NAME[d.v];
+  return `${backHome}
+  <div class="game-hero"><div class="big-candy" aria-hidden="true">✓</div>
+    <h2>That’s all ${d.n}</h2>
+    <p>You finished <b>${nm}</b>. Go back to the sections for the next activity.</p></div>
+  <div class="actions center"><button class="btn" data-go="home">Back to all sections</button><button class="btn ghost" data-go="${d.v}" ${d.v==='qc'?`data-arg="${d.sec}"`:''}>Do these again</button></div>`;
+};
+
+// ===== Candy Challenge =====
+const ROUND=['qc','qc','qc','name','read','sub','cat','cat','order','move'];
+const PASS=0.75; // must get MORE than 75% right
+const GAME_MIN=10; // minutes on the clock
+const TYPE_NAME={qc:'Quick check',name:'Name the expression',read:'Read a formula',sub:'Substitution instances',cat:'Symbolize a sentence',order:'Quantifier order',move:'Move a quantifier'};
+const CHEERS=['Nice!','Great job!','You got it!','Brilliant!','Way to go!','Nailed it!','Logic star!'];
+let game=null, lastGame=null, gameTimer=null;
+const left = () => Math.max(0, game.deadline-Date.now());
+const clock = ms => { const s=Math.ceil(ms/1000); return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`; };
+function gameTick(){
+  if(!game){ clearInterval(gameTimer); return; }
+  const ms=left(), el=document.getElementById('gclock');
+  if(el){ el.textContent='⏱ '+clock(ms); el.classList.toggle('low', ms<60000); }
+  if(ms<=0){ game.timeUp=true; finishGame(); }
+}
+function gameRecord(ok){
+  if(!game||game.answered) return;
+  game.answered=true; game.hist[game.i]=ok;
+  if(ok){ game.right++; game.streak++; game.cheer=pick(CHEERS); } else { game.streak=0; game.cheer=''; }
+}
+function gameBar(title){
+  const g=game, n=g.items.length;
+  const dots=g.items.map((_,k)=>`<i class="${k<g.i||(k===g.i&&g.answered)?(g.hist[k]?'hit':'miss'):k===g.i?'now':''}"></i>`).join('');
+  const cheer = g.answered&&g.hist[g.i] ? `<span class="cheer">${g.cheer}${g.streak>=3?` ${g.streak} in a row!`:''}</span>` : '';
+  return `<div class="gbar"><div class="gbar-row"><span>🍬 Question ${g.i+1} of ${n}</span><span id="gclock" class="gclock${left()<60000?' low':''}">⏱ ${clock(left())}</span><span>${g.right} correct</span></div><div class="dots" aria-hidden="true">${dots}</div></div>
+  <div class="ex-head"><h2>${title}</h2>${cheer}</div>`;
+}
+function startGame(){
+  const name=(document.getElementById('player-name')?.value||'').trim();
+  try{ localStorage.setItem('class12-name',name); }catch(e){}
+  game={items:withSeed('game-order',()=>shuffle(ROUND)), i:-1, right:0, streak:0, answered:false, hist:[], usedQc:[], cheer:'', name, deadline:Date.now()+GAME_MIN*60000};
+  clearInterval(gameTimer); gameTimer=setInterval(gameTick,500);
+  gameNext();
+}
+function gameNext(){
+  if(game.i>=0 && !game.answered){ game.hist[game.i]=false; game.streak=0; }
+  game.i++; game.answered=false; game.cheer='';
+  if(game.i>=game.items.length){ finishGame(); return; }
+  const type=game.items[game.i];
+  view=type; ex=type==='qc' ? withSeed('game-'+game.i,()=>NEW.qc('all')) : NEW[type](0,'game-'+game.i);
+  if(type==='qc'){ const fresh=ex.order.filter(i=>!game.usedQc.includes(i)); ex.order=[fresh[0]]; game.usedQc.push(fresh[0]); }
+  render(); window.scrollTo(0,0);
+}
+function finishGame(){
+  clearInterval(gameTimer); lastGame=game; game=null;
+  lastGame.won = lastGame.right/lastGame.items.length > PASS;
+  if(lastGame.won){ progress.candy=(progress.candy||0)+1; save(); playTada(); }
+  view='gameEnd'; ex=null; render(); window.scrollTo(0,0);
+}
+function playTada(){
+  try{
+    const A=new (window.AudioContext||window.webkitAudioContext)(), t0=A.currentTime;
+    [523.25,659.25,783.99,1046.5].forEach((f,i)=>{
+      const o=A.createOscillator(), g=A.createGain(), t=t0+i*0.13, len=i===3?0.9:0.3;
+      o.type='triangle'; o.frequency.value=f;
+      g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.22,t+0.02); g.gain.exponentialRampToValueAtTime(0.0001,t+len);
+      o.connect(g).connect(A.destination); o.start(t); o.stop(t+len+0.05);
+    });
+  }catch(e){}
+}
+VIEWS.gameStart = () => {
+  let nm=''; try{ nm=localStorage.getItem('class12-name')||''; }catch(e){}
+  return `${backHome}
+  <div class="game-hero"><div class="big-candy" aria-hidden="true">🍬</div>
+    <h2>Candy Challenge</h2>
+    <p>Ten questions from every part, and <b>${GAME_MIN} minutes</b> on the clock. Get <b>8 or more right</b> (over 75%) and you earn candy.</p>
+  </div>
+  <section class="step">
+    <label for="player-name"><h3>Your name</h3><span class="hint">So your teacher knows who earned the candy.</span></label>
+    <input type="text" id="player-name" autocomplete="off" maxlength="40" placeholder="First and last name" value="${esc(nm)}">
+    <div class="actions"><button class="btn big" data-act="start-game">Start the round</button></div>
+    <p class="hint">Only your first try on each question counts. You can skip a question, but a skip counts as a miss. When time runs out, the round ends and any question you didn’t get to counts as a miss. Everyone gets the same ten questions.</p>
+  </section>`;
+};
+VIEWS.gameEnd = () => {
+  const g=lastGame, n=g.items.length, pct=Math.round(g.right/n*100);
+  const who = g.name ? `, ${esc(g.name)}` : '';
+  const date = new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
+  const missed=[...new Set(g.items.filter((_,k)=>!g.hist[k]))];
+  const practice = missed.length ? `<section class="step"><h3>${g.won?'Want a perfect score next time?':'Practice these, then try again'}</h3><ul class="topics">${missed.map(t=>`<li><button class="topic" data-go="${t}" ${t==='qc'?'data-arg="all"':''}><span>${TYPE_NAME[t]}</span><span class="go">Practice</span></button></li>`).join('')}</ul></section>` : '';
+  if(g.won){
+    const rain = Array.from({length:30},()=>`<span style="left:${(Math.random()*96).toFixed(1)}%;animation-delay:${(Math.random()*2.5).toFixed(2)}s;animation-duration:${(2.8+Math.random()*2).toFixed(2)}s;font-size:${22+Math.floor(Math.random()*20)}px">${pick(['🍬','🍭','🍫','🍬','🍭'])}</span>`).join('');
+    return `<div class="rain" aria-hidden="true">${rain}</div>
+    <div class="win" role="status">
+      <div class="big-candy bounce" aria-hidden="true">🍭</div>
+      <p class="eyebrow">Candy Challenge</p>
+      <h1>You got candy${who}!</h1>
+      <p class="cheer-big">${pick(['Hooray!','Fantastic work!','You’re a logic superstar!','Way to go!','Amazing!'])} 🎉</p>
+      <p class="final">${g.right} of ${n} right · ${pct}%</p>
+      <p>Show this screen to your teacher to collect your candy.</p>
+      <p class="stamp">Earned ${esc(date)}</p>
+    </div>
+    <div class="actions center"><button class="btn" data-act="replay">Play again</button><button class="btn ghost" data-go="home">Back to practice</button></div>
+    ${practice}`;
+  }
+  const close = g.right>=n*PASS-1;
+  return `<div class="win lose" role="status">
+      <div class="big-candy" aria-hidden="true">💪</div>
+      <p class="eyebrow">Candy Challenge</p>
+      <h1>${close?'So close':'Good effort'}${who}!</h1>
+      <p class="final">${g.right} of ${n} right · ${pct}%</p>
+      <p>${g.timeUp?'Time ran out. ':''}You need 8 of 10 for candy. Look over the ones you missed, then try again.</p>
+    </div>
+    <div class="actions center"><button class="btn" data-act="replay">Try again</button><button class="btn ghost" data-go="home">Back to practice</button></div>
+    ${practice}`;
+};
+
+// ===== Events =====
+app.addEventListener('click', ev=>{
+  const t=ev.target;
+  const act0=t.closest('[data-act]')?.dataset.act;
+  if(act0==='start-game'){ startGame(); return; }
+  if(act0==='replay'){ go('gameStart'); return; }
+  if(act0==='quit-game'){ clearInterval(gameTimer); game=null; go('home'); return; }
+  if(act0==='next' && game){ gameNext(); return; }
+  const goEl=t.closest('[data-go]'); if(goEl){ go(goEl.dataset.go, goEl.dataset.arg); return; }
+  const d=k=>{ const el=t.closest(`[data-${k}]`); return el?el.dataset[k.replace(/-(.)/g,(_,c)=>c.toUpperCase())]:undefined; };
+  let v;
+  if(view==='name' && (v=d('pick'))!==undefined && ex.pickd===null){
+    ex.pickd=+v; tally('name', ex.mode==='kind'? ex.pickd===ex.item.a : ex.pickd===ex.n); render(); return;
+  }
+  if(view==='read'){
+    if((v=d('type'))!==undefined && !ex.type){ ex.type=v; render(); return; }
+    const a=t.closest('[data-act]')?.dataset.act;
+    if(a==='main' && ex.main===null){ ex.main=+t.closest('[data-i]').dataset.i; render(); return; }
+    if(a==='main-none' && ex.main===null){ ex.main='none'; render(); return; }
+    if(a==='free' && !ex.freeChecked){ const i=+t.closest('[data-i]').dataset.i; ex.free.has(i)?ex.free.delete(i):ex.free.add(i); render(); return; }
+    if(a==='check-free'){ ex.freeChecked=true; render(); return; }
+    if((v=d('sent'))!==undefined && ex.sent===null){
+      ex.sent = v==='true';
+      const f=ex.f, toks=ex.toks, mainIdx=toks.findIndex(x=>x.node===f), freeIdx=toks.map((x,i)=>x.free?i:-1).filter(i=>i>=0);
+      const okType=ex.type===typeOf(f), okMain=f.t==='atom'?ex.main==='none':ex.main===mainIdx;
+      const nVars=toks.filter(x=>x.k==='var').length;
+      const okFree = nVars===0 || (ex.freeChecked && freeIdx.length===ex.free.size && freeIdx.every(i=>ex.free.has(i)));
+      tally('read', okType&&okMain&&okFree&&(ex.sent===(freeIdx.length===0)));
+      render(); return;
+    }
+  }
+  if(view==='sub' && t.closest('[data-act="check-sub"]') && !ex.checked){
+    ex.checked=true;
+    const okSet=ex.cands.map((c,i)=>c.ok?i:-1).filter(i=>i>=0);
+    const ok = ex.negate ? (ex.none&&ex.sel.size===0) : (!ex.none && okSet.length===ex.sel.size && okSet.every(i=>ex.sel.has(i)));
+    tally('sub', ok); render(); return;
+  }
+  if(view==='cat'){
+    if((v=d('form'))!==undefined && !ex.form){ ex.form=v; render(); return; }
+    if(t.closest('[data-act="check-cat"]')){
+      let counter=null;
+      for(const M of MODELS){ const eng=evalCat(ex.tpl.st,M.map(KIND_OF)), mine=evalCat(ex.b,M.map(KIND_OF)); if(eng!==mine && (!counter||M.length<counter.kinds.length)) counter={kinds:M,eng,mine}; }
+      const same = JSON.stringify(ex.b)===JSON.stringify(ex.tpl.st);
+      ex.result={ok:!counter, same, counter};
+      if(!ex.counted){ ex.counted=true; tally('cat', !counter); }
+      render(); return;
+    }
+  }
+  if(view==='order' && t.closest('[data-act="check-order"]')){
+    const c=relCounter(ex.tpl.st, ex.b);
+    ex.result={ok:!c, counter:c};
+    if(!ex.counted){ ex.counted=true; tally('order', !c); }
+    render(); return;
+  }
+  if(view==='move' && (v=d('move'))!==undefined && !ex.pickd){ ex.pickd=v; tally('move', v===ex.ans); render(); return; }
+  if(view==='qc' && (v=d('qc'))!==undefined && ex.pickd===null){ ex.pickd=+v; tally('qc-'+ex.sec, ex.pickd===QC[ex.order[ex.i]].a); render(); return; }
+  if(t.closest('[data-act="next"]')){
+    if(view==='qc'){ if(ex.i+1<ex.order.length){ ex.i++; ex.opt=null; ex.pickd=null; render(); window.scrollTo(0,0); } else go('done',{v:'qc',sec:ex.sec,n:ex.order.length}); return; }
+    if(ex.k+1<SET[view]) go(view, ex.k+1); else go('done',{v:view,n:SET[view]});
+    return;
+  }
+});
+app.addEventListener('change', ev=>{
+  const t=ev.target;
+  if(view==='sub'){
+    if(t.dataset.subsel!==undefined){ const i=+t.dataset.subsel; t.checked?ex.sel.add(i):ex.sel.delete(i); if(t.checked) ex.none=false; render(); }
+    if(t.dataset.subnone!==undefined){ ex.none=t.checked; if(t.checked) ex.sel.clear(); render(); }
+  }
+  if(view==='order' && t.dataset.o){ const k=t.dataset.o; ex.b[k]=['on','n2','n3'].includes(k)?+t.value:t.value; if(ex.result&&!ex.result.ok) ex.result=null; render(); document.getElementById('ord-'+k)?.focus(); }
+  if(view==='cat' && t.dataset.b){ const k=t.dataset.b; ex.b[k]=['on','n1','n2'].includes(k)?+t.value:t.value; if(ex.result&&!ex.result.ok) ex.result=null; render(); document.getElementById('cat-'+k)?.focus(); }
+});
+// ===== Class code =====
+const CLASS_CODE='class12';
+const normCode = v => String(v||'').toLowerCase().replace(/\s+/g,'');
+let unlocked=false; try{ unlocked = localStorage.getItem('class12-unlocked')==='yes'; }catch(e){}
+let codeError=false;
+VIEWS.lock = () => `
+  ${symLayer(26, 11, 'page-syms')}
+  <div class="lock">
+    <div class="tile" aria-hidden="true">∀∃</div>
+    <h1>Class 12</h1>
+    <p class="sub">Predicate logic review for PHIL 270: all four parts.</p>
+    <form id="code-form" class="code-form" novalidate>
+      <label for="class-code" class="hint">Enter the class code your teacher gave you</label>
+      <input type="text" id="class-code" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="30" placeholder="• • • • • • •" ${codeError?'aria-invalid="true" aria-describedby="code-err"':''}>
+      ${codeError?`<p class="code-err" id="code-err" role="alert">That code isn’t right. Check with your teacher and try again.</p>`:''}
+      <button class="btn big" type="submit">Enter</button>
+    </form>
+    <span class="chip"><span aria-hidden="true">🍬</span> Candy Challenge inside</span>
+  </div>`;
+app.addEventListener('submit', ev=>{
+  if(ev.target.id!=='code-form') return;
+  ev.preventDefault();
+  if(normCode(document.getElementById('class-code').value)===CLASS_CODE){
+    unlocked=true; codeError=false; try{ localStorage.setItem('class12-unlocked','yes'); }catch(e){}
+    go('home');
+  } else { codeError=true; render(); document.getElementById('class-code')?.focus(); }
+});
+if(!unlocked) view='lock';
+render();
+if(!unlocked) document.getElementById('class-code')?.focus();
+</script>
+</body>
+</html>
