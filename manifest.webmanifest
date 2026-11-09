@@ -1,7 +1,7 @@
 {
   "name": "Class 12",
   "short_name": "Class 12",
-  "description": "Predicate logic review of all four parts, with a Candy Challenge.",
+  "description": "Symbolization, identity, descriptions, and functions, with a 10-question test at the end.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
