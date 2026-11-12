@@ -1,7 +1,7 @@
 {
   "name": "Class 12",
   "short_name": "Class 12",
-  "description": "Symbolization, identity, descriptions, and functions, with a 10-question test at the end.",
+  "description": "Introduction to symbolization: keys, quantifiers, and relations, with a 10-question test at the end.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
