@@ -272,6 +272,7 @@ input[type=text]:focus-visible{outline:3px solid var(--accent);outline-offset:2p
 .lock .btn.big{border-radius:16px;background:linear-gradient(90deg,var(--candy),#3BA776);color:#fff;box-shadow:0 10px 20px -10px var(--lock-glow)}
 .lock .chip{font-size:.9rem;padding:6px 14px;box-shadow:inset 0 0 0 1.5px var(--lock-line)}
 .lock .hello{margin:0;font-weight:700;color:var(--candy);letter-spacing:.02em}
+.op{font-size:1.22em;line-height:1;vertical-align:-.04em}
 </style>
 </head>
 <body>
@@ -323,8 +324,9 @@ function withSeed(key,fn){ const old=R; R=seeded(key); try{ return fn(); } final
 const pick = a => a[Math.floor(R()*a.length)];
 const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(R()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; };
 const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const F = s => `<span class="f">${esc(s)}</span>`;
-const fmt = t => esc(t).replace(/\{([^}]*)\}/g,'<span class="f">$1</span>');
+const OPS = h => h.replace(/(&amp;|[⊃≡∨~∀∃])/g,'<span class="op">$1</span>');
+const F = s => `<span class="f">${OPS(esc(s))}</span>`;
+const fmt = t => esc(t).replace(/\\\{/g,'\u0001').replace(/\\\}/g,'\u0002').replace(/\{([^}]*)\}/g,(_,f)=>`<span class="f">${OPS(f)}</span>`).replace(/\u0001/g,'{').replace(/\u0002/g,'}');
 
 // ===== Saved progress (this browser only) =====
 const KEY='class12-sym-v1';
@@ -350,8 +352,8 @@ const K = {
 
 // ===== Definitions (intro flashcards) =====
 const DEFS1=[
-  {t:'Symbolization key', d:'A list that says what we are talking about (the UD), gives the English reading of each predicate, and says which member of the UD each constant names.', x:'UD: the members of a book club   Lxy: x likes y   a: Ana', xs:'With this key, {Lab} says “Ana likes Ben.”'},
-  {t:'Universe of discourse (UD)', d:'The set of things we are talking about. A UD is never empty. We can list its members in curly brackets or describe it.', x:'{Ana, Ben, Cara}     the positive integers'},
+  {t:'Symbolization key', d:'A list that says what we are talking about (the UD), gives the English reading of each predicate, and says which member of the UD each constant names.', x:'UD: the members of a book club   Lxy: x likes y   a: Ana', xs:'With this key, Lab says “Ana likes Ben.”'},
+  {t:'Universe of discourse (UD)', d:'The set of things we are talking about. A UD is never empty. We can list its members in curly brackets, or describe it in words.', x:'UD: \\{Ana, Ben, Cara\\}     UD: the positive integers'},
   {t:'Variables in a key only mark places', d:'Writing “Lxy: x likes y” does not mean you must use x and y. Any variables, or constants, can fill the two places.', x:'{(∀x)Lxa}  =  {(∀z)Lza}', xs:'Both say “Everyone likes Ana.”'},
   {t:'Small UD: no quantifiers needed', d:'When the UD has only a few members, “everyone” is a conjunction and “no one” is a negated disjunction. This stops working when the UD is large or infinite, which is why we need quantifiers.', x:'{(Fa & Fb) & Fc}     {~ [(Fa ∨ Fb) ∨ Fc]}', xs:'UD: {Ana, Ben, Cara}. Everyone is friendly. No one is friendly.'},
   {t:'Paraphrase first', d:'Rewrite the English with “Each x is such that…” for ∀ and “There is an x such that…” for ∃. Then symbolize the paraphrase piece by piece.', x:'{(∀x)Lxa}', xs:'Everyone likes Ana → Each x is such that x likes Ana.'},
@@ -524,11 +526,169 @@ function relCounter(a,b){
   return null;
 }
 const ordStr = (st,L) => `${st.on?'~':''}(${st.q1||'?'}x)${st.n2?'~':''}(${st.q2||'?'}y)${st.n3?'~':''}${L}${st.ord||'??'}`;
+// ===== More practice =====
+KEYS.push(
+  {q:'Neither Ana nor Ben likes Cara.', key:K.club,
+   o:['{~ Lac & ~ Lbc}','{~ (Lac & Lbc)}','{~ Lac ∨ ~ Lbc}','{~ Lca & ~ Lcb}'], a:0,
+   w:['','That says they do not both like her. One of them still might.','That says at least one of them does not like her.','The places are reversed: this says Cara likes neither of them.'],
+   e:'Ana does not like Cara, and Ben does not like Cara. {~ (Lac ∨ Lbc)} is also correct.'},
+  {q:'Ana likes Ben only if Ben respects Ana.', key:K.club,
+   o:['{Lab ⊃ Rba}','{Rba ⊃ Lab}','{Lab ≡ Rba}','{Lab ⊃ Rab}'], a:0,
+   w:['','This reverses the conditional. “Only if” introduces the consequent.','≡ is “if and only if.”','{Rab} says Ana respects Ben.'],
+   e:'“P only if Q” is {P ⊃ Q}.'},
+  {q:'Cara likes herself but does not respect herself.', key:K.club,
+   o:['{Lcc & ~ Rcc}','{Lc & ~ Rc}','{Lcc ∨ ~ Rcc}','{Lcc & ~ Rca}'], a:0,
+   w:['','L and R are two-place predicates, so each needs two terms.','“But” is &.','{Rca} says Cara respects Ana.'],
+   e:'The same constant can fill both places of a two-place predicate.'},
+  {q:'Ben likes Ana unless Ana likes Cara.', key:K.club,
+   o:['{Lba ∨ Lac}','{Lba & Lac}','{Lac ⊃ Lba}','{Lab ∨ Lca}'], a:0,
+   w:['','“Unless” is ∨, not &.','“Unless” means “if not.” This says “if Ana likes Cara, Ben likes Ana.”','The places are reversed in both halves.'],
+   e:'“P unless Q” is {P ∨ Q}, or equivalently {~ Q ⊃ P}.'},
+);
+const READ=[
+  {q:'Which English sentence does {(∀x)Lax} say?', key:K.club,
+   o:['Ana likes everyone.','Everyone likes Ana.','Ana likes someone.','Ana likes herself.'], a:0,
+   w:['','That would be {(∀x)Lxa}.','That would use ∃.','That would be {Laa}.'],
+   e:'Each x is such that Ana likes x.'},
+  {q:'Which English sentence does {(∃x)(Lxb & ~ Rxb)} say?', key:K.club,
+   o:['Someone likes Ben but does not respect him.','Everyone who likes Ben does not respect him.','Someone likes Ben, and someone does not respect him.','No one who likes Ben respects him.'], a:0,
+   w:['','That would use ∀ with ⊃.','That would need two quantifiers. Here one x does both.','That would be {(∀x)(Lxb ⊃ ~ Rxb)}.'],
+   e:'There is an x such that x likes Ben and x does not respect Ben.'},
+  {q:'Which English sentence does {~ (∃x)Lxc} say?', key:K.club,
+   o:['No one likes Cara.','Someone does not like Cara.','Cara likes no one.','Not everyone likes Cara.'], a:0,
+   w:['','That would be {(∃x) ~ Lxc}.','That would be {~ (∃x)Lcx}.','That would be {~ (∀x)Lxc}.'],
+   e:'It is not the case that someone likes Cara.'},
+  {q:'Which English sentence does {(∃x)Lxa ⊃ Lba} say?', key:K.club,
+   o:['If anyone likes Ana, Ben does.','If everyone likes Ana, Ben does.','Someone likes Ana, and Ben likes Ana.','If Ben likes Ana, someone does.'], a:0,
+   w:['','That would be {(∀x)Lxa ⊃ Lba}.','The main operator is ⊃, not &.','This reverses the conditional.'],
+   e:'The “if” part says at least one person likes Ana. The “then” part says Ben likes Ana.'},
+  {q:'Which English sentence does {(∀x)(Rxc ⊃ Lxc)} say?', key:K.club,
+   o:['Everyone who respects Cara likes her.','Everyone who likes Cara respects her.','Everyone respects Cara and likes her.','Cara likes everyone who respects her.'], a:0,
+   w:['','This reverses the conditional.','The main connective inside is ⊃, not &.','In {Lxc}, x is the one who likes, so Cara is the one being liked.'],
+   e:'Each x is such that if x respects Cara, then x likes Cara.'},
+  {q:'Which English sentence does {~ (∃x)(Cx & Bx)} say?', key:K.pets,
+   o:['No cat barks.','Some cat does not bark.','Not every cat barks.','Only cats bark.'], a:0,
+   w:['','That would be {(∃x)(Cx & ~ Bx)}.','That would be {~ (∀x)(Cx ⊃ Bx)}.','That would be {(∀x)(Bx ⊃ Cx)}.'],
+   e:'It is not the case that some cat barks. This is equivalent to the E-sentence {(∀x)(Cx ⊃ ~ Bx)}.'},
+];
+ONE.push(
+  {q:'Ana likes everyone who likes her.', key:K.club,
+   o:['{(∀x)(Lxa ⊃ Lax)}','{(∀x)(Lax ⊃ Lxa)}','{(∀x)(Lxa & Lax)}','{(∃x)(Lxa & Lax)}'], a:0,
+   w:['','That says everyone Ana likes, likes her back.','That says everyone likes Ana and Ana likes everyone.','That says only that someone and Ana like each other.'],
+   e:'Each x is such that if x likes Ana, then Ana likes x.'},
+  {q:'Not everyone likes Ben.', key:K.club,
+   o:['{~ (∀x)Lxb}','{(∀x) ~ Lxb}','{~ (∃x)Lxb}','{~ (∀x)Lbx}'], a:0,
+   w:['','That says no one likes Ben.','That also says no one likes Ben.','That says Ben does not like everyone.'],
+   e:'It is not the case that everyone likes Ben. {(∃x) ~ Lxb} is also correct.'},
+  {q:'Ben likes no one.', key:K.club,
+   o:['{(∀x) ~ Lbx}','{~ (∀x)Lbx}','{(∀x) ~ Lxb}','{~ (∃x)Lxb}'], a:0,
+   w:['','That says Ben does not like everyone. He might still like someone.','That says no one likes Ben.','That also says no one likes Ben.'],
+   e:'Each x is such that Ben does not like x. {~ (∃x)Lbx} is also correct.'},
+  {q:'No one who respects Ana likes Cara.', key:K.club,
+   o:['{(∀x)(Rxa ⊃ ~ Lxc)}','{(∀x)(~ Rxa ⊃ Lxc)}','{~ (∀x)(Rxa ⊃ Lxc)}','{(∃x)(Rxa & ~ Lxc)}'], a:0,
+   w:['','That says everyone who does not respect Ana likes Cara.','That says not everyone who respects Ana likes Cara.','That says only that someone who respects Ana does not like Cara.'],
+   e:'Each x is such that if x respects Ana, x does not like Cara. {~ (∃x)(Rxa & Lxc)} is also correct.'},
+  {q:'Everyone likes Ben, or everyone likes Cara.', key:K.club,
+   o:['{(∀x)Lxb ∨ (∀y)Lyc}','{(∀x)(Lxb ∨ Lxc)}','{(∀x)(Lxb & Lxc)}','{(∃x)(Lxb ∨ Lxc)}'], a:0,
+   w:['','That says each person likes Ben or Cara. Some could like only Ben and others only Cara.','That says everyone likes both.','That says only that someone likes Ben or Cara.'],
+   e:'The main connective is ∨, joining two separate universal sentences.'},
+  {q:'Which sentence is true no matter who likes whom?', key:K.club,
+   o:['{(∀x)Lxa ⊃ Lba}','{(∃x)Lxa ⊃ Lba}','{Lba ⊃ (∀x)Lxa}','{(∀x)(Lxa ⊃ Lba)}'], a:0,
+   w:['','False if Cara likes Ana and Ben does not.','False if Ben likes Ana and Cara does not.','This is equivalent to the second option, so it can be false too.'],
+   e:'Ben is one of “everyone,” so if everyone likes Ana, Ben likes Ana.'},
+);
+AEIO.push(
+  {q:'Not all dogs bark.', key:K.pets,
+   o:['{~ (∀x)(Dx ⊃ Bx)}','{(∀x)(Dx ⊃ ~ Bx)}','{(∀x) ~ (Dx ⊃ Bx)}','{~ (∃x)(Dx & Bx)}'], a:0,
+   w:['','That says no dog barks.','That says every animal is a dog that does not bark.','That also says no dog barks.'],
+   e:'It is not the case that all dogs bark. It is equivalent to the O-sentence {(∃x)(Dx & ~ Bx)}.'},
+  {q:'All dogs and cats are asleep.', key:K.pets,
+   o:['{(∀x)[(Dx ∨ Cx) ⊃ Sx]}','{(∀x)[(Dx & Cx) ⊃ Sx]}','{(∀x)[(Dx ∨ Cx) & Sx]}','{(∃x)[(Dx ∨ Cx) & Sx]}'], a:0,
+   w:['','That only talks about animals that are both a dog and a cat.','∀ with &: this says every animal is a dog or cat and is asleep.','That says only that some dog or cat is asleep.'],
+   e:'“Dogs and cats” means anything that is a dog or a cat. {(∀x)(Dx ⊃ Sx) & (∀y)(Cy ⊃ Sy)} is also correct.'},
+  {q:'Some dog that barks is asleep.', key:K.pets,
+   o:['{(∃x)[(Dx & Bx) & Sx]}','{(∃x)[(Dx & Bx) ⊃ Sx]}','{(∀x)[(Dx & Bx) ⊃ Sx]}','{(∃x)(Dx & Bx) & (∃y)Sy}'], a:0,
+   w:['','∃ with ⊃ is true as soon as one animal is not a barking dog.','That says every barking dog is asleep.','The two halves could be about two different animals.'],
+   e:'There is an x such that x is a dog, x barks, and x is asleep.'},
+  {q:'Which kind of sentence is “No cats bark”?', o:['A: All P are Q','E: No P are Q','I: Some P are Q','O: Some P are not Q'], a:1, fixed:true,
+   e:'It is an E-sentence: {(∀x)(Cx ⊃ ~ Bx)}.'},
+  {q:'Which sentence is the contradictory of “Some cats are asleep,” {(∃x)(Cx & Sx)}?', key:K.pets,
+   o:['{(∀x)(Cx ⊃ ~ Sx)}','{(∃x)(Cx & ~ Sx)}','{(∀x)(Cx ⊃ Sx)}','{(∃x)(~ Cx & Sx)}'], a:0,
+   w:['','That is the O-sentence. It can be true together with the I-sentence.','That is the A-sentence. It can be true together with the I-sentence.','That is about animals that are not cats.'],
+   e:'I and E are contradictories: “No cat is asleep.”'},
+  {q:'Which sentence is equivalent to “Not every dog is asleep,” {~ (∀x)(Dx ⊃ Sx)}?', key:K.pets,
+   o:['{(∃x)(Dx & ~ Sx)}','{(∀x)(Dx ⊃ ~ Sx)}','{(∃x)(Dx & Sx)}','{~ (∃x)(Dx & ~ Sx)}'], a:0,
+   w:['','That is too strong: it says no dog is asleep.','That says some dog is asleep.','That says every dog is asleep.'],
+   e:'The negation of an A-sentence is its O-sentence: some dog is not asleep.'},
+);
+REL2.push(
+  {q:'Some dog plays with every cat.', key:K.play,
+   o:['{(∃x)[Dx & (∀y)(Cy ⊃ Pxy)]}','{(∃x)[Dx ⊃ (∀y)(Cy ⊃ Pxy)]}','{(∀y)[Cy ⊃ (∃x)(Dx & Pxy)]}','{(∃x)[Dx & (∀y)(Cy & Pxy)]}'], a:0,
+   w:['','∃ with ⊃ is true as soon as one animal is not a dog.','That says every cat is played with by some dog, maybe a different dog each time.','∀ with &: this says every animal is a cat.'],
+   e:'There is one dog, and each cat is such that this dog plays with it.'},
+  {q:'Every cat is heavier than some dog.', key:K.play,
+   o:['{(∀x)[Cx ⊃ (∃y)(Dy & Hxy)]}','{(∀x)[Cx ⊃ (∃y)(Dy & Hyx)]}','{(∃y)[Dy & (∀x)(Cx ⊃ Hxy)]}','{(∀x)(∀y)[(Cx & Dy) ⊃ Hxy]}'], a:0,
+   w:['','The places are swapped: this says some dog is heavier than each cat.','That says one dog is lighter than every cat. That is stronger.','That says every cat is heavier than every dog.'],
+   e:'Each cat is heavier than some dog or other.'},
+  {q:'No dog plays with itself.', key:K.play,
+   o:['{~ (∃x)(Dx & Pxx)}','{(∀x)(Dx ⊃ ~ Pxy)}','{~ (∃x)(∃y)(Dx & Pxy)}','{(∃x)(Dx & ~ Pxx)}'], a:0,
+   w:['','y is free, so this is not a sentence.','That says no dog plays with anything.','That says only that some dog does not play with itself.'],
+   e:'It is not the case that some dog plays with itself. {(∀x)(Dx ⊃ ~ Pxx)} is also correct.'},
+  {q:'Every animal that plays with a cat is a dog.', key:K.play,
+   o:['{(∀x)[(∃y)(Cy & Pxy) ⊃ Dx]}','{(∀x)[Dx ⊃ (∃y)(Cy & Pxy)]}','{(∃x)[(∃y)(Cy & Pxy) & Dx]}','{(∀x)[(∃y)(Cy ⊃ Pxy) ⊃ Dx]}'], a:0,
+   w:['','This reverses it: every dog plays with a cat.','That says only that some dog plays with a cat.','∃ with ⊃ inside makes the “if” part true too easily.'],
+   e:'“A cat” sits in the “if” part. {(∀x)(∀y)[(Cy & Pxy) ⊃ Dx]} is also correct.'},
+  {q:'There is a cat that no dog plays with.', key:K.play,
+   o:['{(∃x)[Cx & ~ (∃y)(Dy & Pyx)]}','{(∃x)[Cx & ~ (∃y)(Dy & Pxy)]}','{~ (∃x)[Cx & (∃y)(Dy & Pyx)]}','{(∃x)[Cx & (∃y)(Dy & ~ Pyx)]}'], a:0,
+   w:['','The places are swapped: this says some cat plays with no dog.','That says no cat is played with by any dog.','That says only that some dog does not play with it.'],
+   e:'There is a cat x, and there is no dog y such that y plays with x.'},
+  {q:'Which English sentence does {(∀x)[Dx ⊃ (∃y)(Cy & Hyx)]} say?', key:K.play,
+   o:['For every dog, some cat is heavier than it.','Every dog is heavier than some cat.','Some cat is heavier than every dog.','Every cat is heavier than some dog.'], a:0,
+   w:['','In {Hyx}, y (the cat) is the heavier one.','That would put (∃y) first.','That would start with the cats.'],
+   e:'Each dog x has some cat y such that y is heavier than x.'},
+);
+NUMS.push(
+  {q:'Every even number is less than some odd number.', key:K.ints,
+   o:['{(∀x)[Ex ⊃ (∃y)(Oy & Lxy)]}','{(∃y)[Oy & (∀x)(Ex ⊃ Lxy)]}','{(∀x)[Ex ⊃ (∃y)(Oy & Lyx)]}','{(∀x)(∀y)[(Ex & Oy) ⊃ Lxy]}'], a:0,
+   w:['','That says one odd number is greater than every even number. That is false.','The places are swapped: this says some odd number is less than each even number.','That says every even number is less than every odd number. That is false: 3 is less than 4.'],
+   e:'Each even x has some odd y such that x is less than y. (x + 1 works.)'},
+  {q:'No positive integer is less than itself.', key:K.ints,
+   o:['{~ (∃x)Lxx}','{(∀x)(∀y) ~ Lxy}','{~ (∃x)(∃y)Lxy}','{(∃x) ~ Lxx}'], a:0,
+   w:['','That says no integer is less than any integer.','That also says no integer is less than any integer.','That says only that some integer is not less than itself.'],
+   e:'It is not the case that some x is less than x. {(∀x) ~ Lxx} is also correct.'},
+  {q:'Some prime is even.', key:K.ints,
+   o:['{(∃x)(Px & Ex)}','{(∃x)(Px ⊃ Ex)}','{(∀x)(Px ⊃ Ex)}','{Pb ⊃ Eb}'], a:0,
+   w:['','∃ with ⊃ is true as soon as one number is not prime.','That says every prime is even.','That is only about 2, and it does not say 2 is prime.'],
+   e:'There is an x such that x is prime and x is even. (2 is that x.)'},
+  {q:'In the positive integers, is {(∀x)(∃y)Lyx} true or false?', key:K.ints,
+   o:['True','False'], a:1, fixed:true,
+   e:'It says every positive integer has a smaller one. Nothing is less than 1, so it is false.'},
+);
+const WTXT='The only facts: Ana likes Ben, Ben likes himself, Cara likes Ben, and Ben likes Cara. No one else likes anyone.';
+const WKEY=[['UD','{Ana, Ben, Cara}'],['Lxy','x likes y'],['a','Ana'],['b','Ben'],['c','Cara']];
+const WORLD=[
+  ['(∀x)Lxb',1,'Ana, Ben, and Cara all like Ben.'],
+  ['(∀x)Lbx',0,'This says Ben likes everyone, but Ben does not like Ana.'],
+  ['(∃x)(∀y)Lyx',1,'Ben is liked by all three people.'],
+  ['(∀x)(∃y)Lxy',1,'Each person likes Ben, so each person likes someone.'],
+  ['(∀x)(∃y)Lyx',0,'This says everyone is liked by someone, but no one likes Ana.'],
+  ['(∃x)Lxa',0,'No one likes Ana.'],
+  ['(∃x)Lxa ⊃ Lba',1,'The “if” part is false because no one likes Ana, so the whole conditional is true.'],
+  ['(∀x)(Lxb ⊃ Lbx)',0,'Ana likes Ben, but Ben does not like Ana.'],
+].map(([f,t,e])=>({q:`${WTXT} Is {${f}} true or false?`, key:WKEY, o:['True','False'], a:t?0:1, fixed:true, e}));
+ORDER.push(
+  {v:1, say:v=>`Everyone is ${v.pp} by someone.`, st:RS('∀','∃','yx'), e:v=>`Each person x has some y or other who ${v.vs} x. So (∀x) comes first and x goes in the second place.`},
+  {v:0, say:v=>`Someone ${v.vs} no one.`, st:RS('∃','∀','xy',0,0,1), e:v=>`There is an x such that, for every y, it is not the case that x ${v.vs} y.`},
+  {v:2, say:v=>`No one is ${v.pp} by everyone.`, st:RS('∃','∀','yx',1), e:v=>`It is not the case that some x is ${v.pp} by every y. (∀x)(∃y)~${v.L}yx is an equivalent way to write it.`},
+);
+
 const PROP_N=[], PROP_F=[];
 
 // ===== Activities =====
 const ACTS={
   learn1:{kind:'card', items:DEFS1, name:'Definitions: introduction to symbolization', sub:'Flashcards · tap to reveal', ico:'Aa', deck:'Introduction to symbolization'},
+  read:{kind:'mc', items:READ, name:'Read it in English', sub:'From formulas back to English', ico:'Ab'},
+  world:{kind:'mc', items:WORLD, name:'True in the club?', sub:'Check sentences against a small UD', ico:'T/F'},
   keys:{kind:'mc', items:KEYS, name:'Using a symbolization key', sub:'Names, predicates, connectives, and small UDs', ico:'🔑'},
   one:{kind:'mc', items:ONE, name:'One quantifier', sub:'Everyone, someone, and “anyone”', ico:'∀'},
   aeio:{kind:'mc', items:AEIO, name:'All, no, and some', sub:'A, E, I, O sentences and contradictories', ico:'AEIO'},
@@ -537,11 +697,11 @@ const ACTS={
   nums:{kind:'mc', items:NUMS, name:'The positive integers', sub:'Smallest, largest, and primes', ico:'123'},
 };
 const PARTS=[
-  {n:0, title:'Start here: definitions', ids:['learn1'], min:12},
-  {n:1, title:'Symbolization keys', ids:['keys'], min:8},
+  {n:0, title:'Start here: definitions', ids:['learn1'], min:10},
+  {n:1, title:'Symbolization keys', ids:['keys','read'], min:12},
   {n:2, title:'One quantifier', ids:['one'], min:12},
   {n:3, title:'All, no, and some', ids:['aeio'], min:12},
-  {n:4, title:'Two quantifiers and relations', ids:['order','rel2','nums'], min:21},
+  {n:4, title:'Two quantifiers and relations', ids:['order','rel2','world','nums'], min:19},
 ];
 const ALL_IDS=PARTS.flatMap(p=>p.ids);
 const nOf = id => ACTS[id].items.length;
@@ -601,7 +761,7 @@ VIEWS.home = () => {
     <ol>${PARTS.map(p=>`<li><b>${p.title}</b> · about ${p.min} min</li>`).join('')}<li><b>Test your knowledge</b> · about 10 min</li></ol>
   </section>
   <ol class="levels">${PARTS.map(part).join('')}</ol>
-  <p class="reset-row"><button class="reset" data-act="reset">Start over</button></p>`;
+  <p class="reset-row"><a class="reset" href="sheets/class-12-practice-sheet.pdf" target="_blank" rel="noopener">Printable practice sheet (PDF)</a> · <button class="reset" data-act="reset">Start over</button></p>`;
 };
 
 // ===== Activity views =====
